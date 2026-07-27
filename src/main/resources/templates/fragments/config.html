@@ -9,6 +9,8 @@
 
     <!-- 🔹 반응형 메타 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
 
     <!-- 🔹 favicon -->
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -40,6 +42,7 @@
     <script th:src="@{/js/fragments/toast.js}" defer></script>
     <script th:src="@{/js/fragments/site-popup.js}" defer></script>
     <script th:src="@{/js/fragments/inline-image-editor.js}" defer></script>
+    <script th:src="@{/js/common/csrf.js}" defer></script>
     <script th:src="@{/js/fragments/community/list-actions.js}" defer></script>
     <script th:src="@{/js/fragments/community/post-actions.js}" defer></script>
     <!-- 🔹 공통 JS -->

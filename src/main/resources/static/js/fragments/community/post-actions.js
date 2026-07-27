@@ -9,9 +9,9 @@ async function handleRestore(button) {
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
+            headers: getCsrfHeaders({
                 'X-Requested-With': 'XMLHttpRequest'
-            }
+            })
         });
 
         const contentType = response.headers.get("content-type");
@@ -45,9 +45,9 @@ async function handleDelete(button) {
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
+            headers: getCsrfHeaders({
                 'X-Requested-With': 'XMLHttpRequest'
-            }
+            })
         });
 
         const contentType = response.headers.get("content-type");

@@ -68,9 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`/api${prefix}/delete`, {
                     method: 'PATCH',
-                    headers: {
+                    headers: getCsrfHeaders({
                         'Content-Type': 'application/json'
-                    },
+                    }),
                     body: JSON.stringify({ ids })
                 });
 
@@ -101,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`/api${prefix}/restore`, {
                     method: 'PATCH',
-                    headers: {
+                    headers: getCsrfHeaders({
                         'Content-Type': 'application/json'
-                    },
+                    }),
                     body: JSON.stringify({ ids })
                 });
 
