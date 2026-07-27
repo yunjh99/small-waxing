@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>예약하기</title>
+    <meta name="description" content="스몰왁싱 네이버 예약 및 카카오톡 상담 안내">
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/reservation/reservation.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content" class="reservation-page">
+    <header class="reservation-hero">
+        <p class="reservation-eyebrow">BOOK YOUR TIME</p>
+        <h1>편한 방법으로<br>예약해 주세요</h1>
+        <p class="reservation-intro">원하시는 날짜와 시술이 정해졌다면 네이버 예약을,<br>
+            시술 전 궁금한 점이 있다면 카카오톡 상담을 이용해 주세요.</p>
+    </header>
+    <div class="reservation-channels">
+        <article class="reservation-card reservation-card--naver">
+            <div class="reservation-card__top"><span class="reservation-card__number">01</span><span class="reservation-card__badge">빠른 예약</span></div>
+            <div class="reservation-card__icon" aria-hidden="true">N</div>
+            <h2>네이버 예약</h2>
+            <p>실시간으로 가능한 시간을 확인하고<br>바로 예약을 확정할 수 있어요.</p>
+            <ul><li><i class="bi bi-check2"></i> 24시간 예약 가능</li><li><i class="bi bi-check2"></i> 예약 현황 즉시 확인</li></ul>
+            <a class="reservation-button reservation-button--naver" th:href="${naverReservationUrl}" target="_blank" rel="noopener noreferrer">
+                네이버로 예약하기 <i class="bi bi-arrow-up-right"></i></a>
+        </article>
+        <article class="reservation-card reservation-card--kakao">
+            <div class="reservation-card__top"><span class="reservation-card__number">02</span><span class="reservation-card__badge">맞춤 상담</span></div>
+            <div class="reservation-card__icon" aria-hidden="true"><i class="bi bi-chat-fill"></i></div>
+            <h2>카카오톡 상담</h2>
+            <p>어떤 시술을 선택할지 고민된다면<br>상담 후 알맞게 예약해 드려요.</p>
+            <ul><li><i class="bi bi-check2"></i> 시술·가격 문의</li><li><i class="bi bi-check2"></i> 첫 방문 맞춤 안내</li></ul>
+            <a class="reservation-button reservation-button--kakao" th:href="${kakaoChannelUrl}" target="_blank" rel="noopener noreferrer">
+                카카오톡으로 상담하기 <i class="bi bi-arrow-up-right"></i></a>
+        </article>
+    </div>
+</section>
+</body>
+</html>

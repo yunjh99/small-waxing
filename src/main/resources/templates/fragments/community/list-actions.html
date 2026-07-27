@@ -1,0 +1,33 @@
+<!-- fragments/community/list-actions.html -->
+<th:block xmlns:th="http://www.thymeleaf.org">
+
+  <div th:fragment="listActions(prefix, viewType, entityName, enableRestore)"
+       class="list-actions"
+       th:attr="data-prefix=${prefix},
+                data-view-type=${viewType},
+                data-entity-name=${entityName},
+                data-enable-restore=${enableRestore}">
+
+    <button type="button" class="list-actions__btn" id="btnSelectAll">
+      전체선택
+    </button>
+
+    <button type="button" class="list-actions__btn"
+            id="btnDeleteSelected"
+            th:if="${viewType != 'deleted'}">
+      선택삭제
+    </button>
+
+    <button type="button" class="list-actions__btn"
+            id="btnRestoreSelected"
+            th:if="${enableRestore and viewType == 'deleted'}">
+      선택복구
+    </button>
+
+    <a class="list-actions__btn"
+       th:href="@{|${prefix}/form|}">
+      글쓰기
+    </a>
+  </div>
+
+</th:block>

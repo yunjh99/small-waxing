@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>자주묻는질문</title>
+    <meta name="description" content="스몰왁 FAQ 작성 페이지">
+
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/form.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('faq', '자주묻는질문', 'FAQ')}"></div>
+</section>
+
+
+<section layout:fragment="content">
+    <div class="content">
+        <div class="commu-form">
+            <div class="commu-form__body">
+                <div class="form-card">
+                    <form th:action="${faqId == null} ? @{/admin/faqs} : @{/admin/faqs/{id}(id=${faqId})}"
+                          method="post"
+                          id="writeForm"
+                          enctype="multipart/form-data">
+
+                        <div class="commu-write-container">
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="type">FAQ 유형</label>
+
+                                    <select id="type" name="type" required>
+                                        <option value="">유형 선택</option>
+                                        <option th:each="t : ${types}"
+                                                th:value="${t.name()}"
+                                                th:text="${t.label}"
+                                                th:selected="${faq != null and faq.type == t}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="title">질문</label>
+                                    <input type="text"
+                                           id="title"
+                                           name="title"
+                                           placeholder="자주 묻는 질문을 작성해주세요"
+                                           th:value="${faq != null} ? ${faq.title} : ''"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="content">답변</label>
+                                    <textarea id="content"
+                                              name="content"
+                                              placeholder="답변을 입력하세요"
+                                              th:text="${faq != null} ? ${faq.content} : ''"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="input-item submit-button-wrapper">
+                                <button type="submit"
+                                        class="submit-button"
+                                        id="submit-button"
+                                        th:text="${faqId == null} ? '등록하기' : '수정하기'">
+                                </button>
+                            </div>
+
+                        </div>
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,233 @@
+/* ===== Layout ===== */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5px 16px;
+}
+
+/*헤드시작*/
+/*----------------------*/
+.commu-header {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 300px;
+    background-color: #585858;
+}
+
+.commu-empty {
+    padding: 80px 20px;
+    text-align: center;
+    color: #777;
+}
+
+/* 이미지 컨테이너 스타일 */
+.image-container {
+    position: relative;
+    width: 100%; /* 이미지 컨테이너 너비를 100%로 설정 */
+    height: 100%; /* 이미지 컨테이너 높이를 100%로 설정 */
+}
+
+.image-container img {
+    width: 100%; /* 이미지 너비를 컨테이너에 맞춤 */
+    height: 100%; /* 이미지 높이를 컨테이너에 맞춤 */
+    object-fit: cover; /* 비율을 유지하면서 컨테이너를 완전히 채움 */
+}
+
+/* 네비게이션 */
+/*-------------*/
+.commu-header-nav {
+    position: absolute; /* 부모 요소인 .image-container에 절대적으로 배치 */
+    bottom: 0px; /* 네비게이션을 이미지 컨테이너의 하단에 위치 */
+    width: 100%; /* 네비게이션이 이미지 컨테이너의 너비를 가득 채우도록 설정 */
+    text-align: center;
+}
+
+.commu-header-nav ul {
+    display: flex; /* 수평 일열로 */
+    list-style: none;
+    justify-content: center;
+    padding: 0; /* 패딩 제거 */
+    margin: 0; /* 마진 제거 */
+}
+
+.commu-header-nav li {
+    margin: 0; /* 링크들 사이의 간격 제거 */
+}
+
+.commu-header-nav a {
+    width: 120px;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #333;
+    color: rgba(255, 255, 255, 0.7); /* 70% 투명한 흰색 */
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: all 0.3s;
+    margin: 0; /* 링크들 사이의 간격 제거 */
+    border-right: 0.2px solid grey;  /* 사이에 선 추가 */
+}
+
+.commu-header-nav li:last-child a {
+    border-right: none; /* 마지막 항목의 border-right 제거 */
+}
+
+/* 호버 스타일 */
+.commu-header-nav a:hover {
+    color: rgba(255, 255, 255, 0.9); /* 90% 투명한 흰색 */
+}
+
+.commu-header-nav a.active {
+    background-color: #f8f8f8;
+    color: rgba(51, 51, 51, 0.85);
+}
+
+.commu-header-nav a.active:hover {
+    background-color: #f8f8f8;
+    color: rgba(51, 51, 51, 1);
+}
+
+/*-------------*/
+
+
+/*TITLE*/
+/*----------------------*/
+.commu-title {
+    position: relative;
+
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    height: 100%; /* 부모 요소의 높이에 맞춤 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding-top: 80px;
+    padding-bottom: 30px;
+
+
+    margin: 0 auto; /* 좌우 여백을 자동으로 설정하여 중앙 정렬 */
+    width: 1200px;
+    border-bottom: 2px solid #c75e5e;
+}
+
+.commu-title h1{
+    font-size: 50px;
+}
+
+.commu-title a{
+    font-size: 20px;
+    color: #c75e5e;
+}
+/*----------------------*/
+
+
+.commu-list {
+    width: 100%;
+}
+
+/* css/components/community/list-actions.css */
+.list-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0;
+}
+
+.list-actions__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    background: #c75e5e;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* ===== Pagination ===== */
+.pagination {
+    margin-top: 50px;
+}
+
+.pagination__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination__item.is-disabled .pagination__link {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.pagination__item.is-active .pagination__link {
+    background: #c75e5e;
+    color: #fff;
+    border-color: #c75e5e;
+}
+
+.pagination__link {
+    display: inline-flex;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #222;
+    font-weight: 700;
+}
+
+/* =========================
+   이벤트 상태 탭
+   ========================= */
+.commu-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb; /* 연한 구분선 */
+}
+
+.commu-tabs a {
+    position: relative;
+    padding: 10px 4px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #6b7280;          /* 기본 회색 */
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.commu-tabs a:hover {
+    color: #111827;          /* hover 진한 색 */
+}
+
+.commu-tabs a.is-active {
+    color: #111827;          /* 활성 탭 */
+    font-weight: 600;
+}
+
+.commu-tabs a.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 2px;
+    background-color: #111827; /* 활성 밑줄 */
+}

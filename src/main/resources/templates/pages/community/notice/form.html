@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>공지사항</title>
+    <meta name="description" content="스몰왁싱 공지사항 작성 페이지">
+
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/form.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('notice', '공지사항', 'NOTICE')}"></div>
+</section>
+
+
+<section layout:fragment="content">
+    <div class="content">
+        <div class="commu-form">
+            <div class="commu-form__body">
+                <div class="form-card">
+                    <form th:action="${notice == null} ? @{/admin/notices} : @{/admin/notices/{id}(id=${notice.id})}"
+                          method="post"
+                          id="writeForm"
+                          enctype="multipart/form-data">
+
+                        <div class="commu-write-container">
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="title">제목</label>
+                                    <input type="text"
+                                           id="title"
+                                           name="title"
+                                           placeholder="공지사항 제목을 입력하세요"
+                                           th:value="${notice != null} ? ${notice.title} : ''"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="content">내용</label>
+                                    <textarea id="content"
+                                              name="content"
+                                              placeholder="본문 내용을 입력하세요"
+                                              th:text="${notice != null} ? ${notice.content} : ''"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="input-group no-flex">
+                                <div class="input-item">
+                                    <label for="bodyImage">본문 이미지</label>
+
+                                    <input type="text"
+                                           id="bodyImageInput"
+                                           placeholder="본문 이미지 1개 업로드"
+                                           readonly>
+
+                                    <label for="bodyImage" class="file-upload-label">본문 이미지 첨부</label>
+
+                                    <input type="file"
+                                           id="bodyImage"
+                                           name="bodyImage"
+                                           accept="image/*"
+                                           style="display:none;">
+
+                                    <p id="bodyImage-warning" style="color:red; display:none;"></p>
+                                </div>
+
+                                <div class="input-item">
+                                    <label></label>
+                                    <div class="file-list">
+                                        <ul id="existingBodyImageList" class="existingFiles-List">
+                                            <li th:if="${notice != null and notice.bodyImageUrl != null}">
+                                                <div class="file-item">
+                                                    <a th:href="${notice.bodyImageUrl}"
+                                                       target="_blank"
+                                                       th:text="${notice.bodyImageName}">
+                                                    </a>
+                                                    <button type="button"
+                                                            class="delete-btn"
+                                                            id="btnDeleteBodyImage">
+                                                        삭제
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <input type="hidden"
+                                               name="deleteBodyImage"
+                                               id="deleteBodyImage"
+                                               value="false">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-item submit-button-wrapper">
+                                <button type="submit"
+                                        class="submit-button"
+                                        id="submit-button"
+                                        th:text="${notice == null} ? '등록하기' : '수정하기'">
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/js/pages/community/form.js}" defer></script>
+    </th:block>
+</section>
+</body>
+</html>

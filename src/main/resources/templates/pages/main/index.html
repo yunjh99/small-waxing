@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+
+<head>
+    <title>메인</title>
+    <meta name="description" content="스몰왁싱 메인 페이지">
+    <!-- 🔹 페이지 전용 CSS -->
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/home/index.css}">
+    </th:block>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <div class="content">
+
+        <div class="image-container inline-image-edit-host">
+            <img th:src="${mainHeroImage}" alt="스몰왁싱 메인 이미지">
+            <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                      th:with="editorId='main-hero', editorSlot='MAIN_HERO', editorImageUrl=${mainHeroImage}, editorLabel='메인 상단 이미지', editorRecommendedSize='1920 × 810px', editorReturnTo='/'"></th:block>
+            <div class="main-visual-text"
+                 th:classappend="| text-x-${mainHeroText.horizontalPosition} text-y-${mainHeroText.verticalPosition}|">
+                <h1 th:text="${mainHeroText.title}">SMALL WAXING</h1>
+                <p th:text="${mainHeroText.subtitle}">PROFESSIONAL WAXING SHOP</p>
+            </div>
+            <div class="?t">PROFESSIONAL WAXING SHOP</div>
+            <div class="?">#전문왁서 #</div>
+        </div>
+
+        <div class="middle">
+            <div class="middle-header">
+                <div class="header-item">
+                    <i class="bi bi-award"></i>
+                    <h1>스몰왁싱</h1>
+                    <h4>스몰왁싱만의<br>특별함을 만나보세요</h4>
+                    <a th:href="@{/smallwaxing}">알아보기</a>
+                </div>
+
+                <div class="header-item">
+                    <i class="bi bi-currency-exchange"></i>
+                    <h1>가격안내</h1>
+                    <h4>부담스럽지 않은<br>합리적인 가격을 고집합니다</h4>
+                    <a th:href="@{/pricing}">가격보기</a>
+                </div>
+
+                <div class="header-item">
+                    <i class="bi bi-patch-question"></i>
+                    <h1>궁금해요</h1>
+                    <h4>고객님들이 자주 묻는 질문<br>빠르게 확인해보세요</h4>
+                    <a th:href="@{/community/faqs}">답변보기</a>
+                </div>
+
+                <div class="header-item">
+                    <i class="bi bi-chat-dots"></i>
+                    <h1>왁싱상담</h1>
+                    <h4>스몰왁싱에 대해<br>궁금한 점을 물어보세요</h4>
+                    <a th:href="@{#}">상담하기</a>
+                </div>
+            </div>
+        </div>
+        <!-- 새로운 이미지 섹션: 4개의 이미지를 2개씩 나누어 표시 -->
+        <div class="middle-middle">
+            <h1>SMALL SERVICE</h1>
+            <div class="middle-img">
+                <div class="image-item inline-image-edit-host">
+                    <img th:src="${mainServiceImage1}" alt="브라질리언왁싱">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='main-service-1', editorSlot='MAIN_SERVICE_1', editorImageUrl=${mainServiceImage1}, editorLabel='브라질리언왁싱 이미지', editorRecommendedSize='1751 × 898px', editorReturnTo='/'"></th:block>
+                    <div class="overlay-background"
+                         th:classappend="| text-x-${mainServiceText1.horizontalPosition} text-y-${mainServiceText1.verticalPosition}|">
+                        <div class="overlay-text" th:text="${mainServiceText1.subtitle}"></div>
+                        <div class="overlay-text-h" th:text="${mainServiceText1.title}"></div>
+                        <div class="overlay-text-a" th:text="${mainServiceText1.description}"></div>
+                        <a th:href="@{/services/brazilian}">More View</a>
+                    </div>
+                </div>
+                <div class="image-item inline-image-edit-host">
+                    <img th:src="${mainServiceImage2}" alt="얼굴왁싱">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='main-service-2', editorSlot='MAIN_SERVICE_2', editorImageUrl=${mainServiceImage2}, editorLabel='페이스왁싱 이미지', editorRecommendedSize='1751 × 898px', editorReturnTo='/'"></th:block>
+                    <div class="overlay-background"
+                         th:classappend="| text-x-${mainServiceText2.horizontalPosition} text-y-${mainServiceText2.verticalPosition}|">
+                        <div class="overlay-text" th:text="${mainServiceText2.subtitle}"></div>
+                        <div class="overlay-text-h" th:text="${mainServiceText2.title}"></div>
+                        <div class="overlay-text-a" th:text="${mainServiceText2.description}"></div>
+                        <a th:href="@{/services/face}">More View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-img">
+                <div class="image-item inline-image-edit-host">
+                    <img th:src="${mainServiceImage3}" alt="바디왁싱">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='main-service-3', editorSlot='MAIN_SERVICE_3', editorImageUrl=${mainServiceImage3}, editorLabel='바디왁싱 이미지', editorRecommendedSize='1751 × 898px', editorReturnTo='/'"></th:block>
+                    <div class="overlay-background"
+                         th:classappend="| text-x-${mainServiceText3.horizontalPosition} text-y-${mainServiceText3.verticalPosition}|">
+                        <div class="overlay-text" th:text="${mainServiceText3.subtitle}"></div>
+                        <div class="overlay-text-h" th:text="${mainServiceText3.title}"></div>
+                        <div class="overlay-text-a" th:text="${mainServiceText3.description}"></div>
+                        <a th:href="@{/services/body}">More View</a>
+                    </div>
+                </div>
+                <div class="image-item inline-image-edit-host">
+                    <img th:src="${mainServiceImage4}" alt="임산부왁싱">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='main-service-4', editorSlot='MAIN_SERVICE_4', editorImageUrl=${mainServiceImage4}, editorLabel='임산부왁싱 이미지', editorRecommendedSize='1751 × 898px', editorReturnTo='/'"></th:block>
+                    <div class="overlay-background"
+                         th:classappend="| text-x-${mainServiceText4.horizontalPosition} text-y-${mainServiceText4.verticalPosition}|">
+                        <div class="overlay-text" th:text="${mainServiceText4.subtitle}"></div>
+                        <div class="overlay-text-h" th:text="${mainServiceText4.title}"></div>
+                        <div class="overlay-text-a" th:text="${mainServiceText4.description}"></div>
+                        <a th:href="@{/services/pregnant}">More View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb">
+            <h1>About SMALL</h1>
+            <div class="about-small-grid">
+                <article class="about-small-card">
+                    <div class="about-small-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></div>
+                    <h2><span class="about-small-highlight">전문 교육</span> 이수</h2>
+                    <p>호부, 일본, 미국 교육을 이수한 왁서의 섬세한 관리</p>
+                </article>
+                <article class="about-small-card">
+                    <div class="about-small-icon"><i class="bi bi-people" aria-hidden="true"></i></div>
+                    <h2>누적 고객 <span class="about-small-highlight">30,000명 이상</span></h2>
+                    <p>다양한 고객 경험을 바탕으로 개인별 맞춤 관리</p>
+                </article>
+                <article class="about-small-card">
+                    <div class="about-small-icon"><i class="bi bi-calendar-check" aria-hidden="true"></i></div>
+                    <h2><span class="about-small-highlight">10년</span>의 왁싱 업력</h2>
+                    <p>꾸준히 쌓아온 노하우로 편안하고 안정적인 시술</p>
+                </article>
+                <article class="about-small-card">
+                    <div class="about-small-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></div>
+                    <h2>철저한 <span class="about-small-highlight">위생관리</span></h2>
+                    <p>도구와 공간을 꼼꼼하게 관리한 청결한 환경</p>
+                </article>
+                <article class="about-small-card">
+                    <div class="about-small-icon"><i class="bi bi-droplet-half" aria-hidden="true"></i></div>
+                    <h2><span class="about-small-highlight">노더블딥</span> 원칙</h2>
+                    <p>스파출라는 한 번만 사용하는 위생 원칙</p>
+                </article>
+                <article class="about-small-card">
+                    <div class="about-small-icon"><i class="bi bi-door-closed" aria-hidden="true"></i></div>
+                    <h2><span class="about-small-highlight">프라이빗</span> 공간</h2>
+                    <p>독립된 관리 공간에서 보다 편안한 시술</p>
+                </article>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<!-- 🔹 페이지 전용 JS -->
+<th:block layout:fragment="pageScript">
+    <script th:src="@{/js/pages/home/index.js}" defer></script>
+</th:block>
+
+</body>
+</html>

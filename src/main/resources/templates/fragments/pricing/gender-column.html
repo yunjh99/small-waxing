@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<section th:fragment="column(title, gender, pricings)" class="pricing-gender-column">
+    <header class="pricing-gender-header">
+        <span th:text="${gender.name() == 'FEMALE' ? 'WOMAN' : 'MAN'}">WOMAN</span>
+        <h2 th:text="${title}">여성</h2>
+    </header>
+
+    <section class="pricing-section">
+        <h3 class="pricing-section-title">FACE</h3>
+        <div class="pricing-list" th:attr="data-pricing-list=|${gender.name()}-FACE|">
+            <article class="pricing-item" th:each="pricing : ${pricings}"
+                     th:if="${pricing.category.name() == 'FACE'}"
+                     th:attr="data-pricing-id=${pricing.id}">
+                <button class="pricing-drag-handle" type="button"
+                        sec:authorize="hasRole('ADMIN')" aria-label="순서 이동">☰</button>
+                <h4 th:text="${pricing.name}">시술명</h4>
+                <div class="pricing-item__right">
+                    <strong th:if="${pricing.price != null}"
+                            th:text="${#numbers.formatInteger(pricing.price, 0, 'COMMA')} + '원'">0원</strong>
+                    <strong class="price-inquiry" th:if="${pricing.price == null}">가격 문의</strong>
+                    <div class="pricing-item__admin" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin/pricing/{id}/form(id=${pricing.id})}">수정</a>
+                        <form th:action="@{/admin/pricing/{id}/delete(id=${pricing.id})}" method="post"
+                              onsubmit="return confirm('이 가격 메뉴를 삭제할까요?');">
+                            <input type="hidden" name="gender" th:value="${gender.name()}">
+                            <button type="submit">삭제</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            <p class="pricing-empty" th:if="${#lists.isEmpty(pricings.?[category.name() == 'FACE'])}">
+                등록된 FACE 메뉴가 없습니다.
+            </p>
+        </div>
+        <form class="pricing-order-form" sec:authorize="hasRole('ADMIN')"
+              th:action="@{/admin/pricing/order}" method="post"
+              th:attr="data-order-form=|${gender.name()}-FACE|">
+            <input type="hidden" name="gender" th:value="${gender.name()}">
+            <input type="hidden" name="category" value="FACE">
+            <button type="submit">순서 저장</button>
+        </form>
+    </section>
+
+    <section class="pricing-section">
+        <h3 class="pricing-section-title">BODY</h3>
+        <div class="pricing-list" th:attr="data-pricing-list=|${gender.name()}-BODY|">
+            <article class="pricing-item" th:each="pricing : ${pricings}"
+                     th:if="${pricing.category.name() == 'BODY'}"
+                     th:attr="data-pricing-id=${pricing.id}">
+                <button class="pricing-drag-handle" type="button"
+                        sec:authorize="hasRole('ADMIN')" aria-label="순서 이동">☰</button>
+                <h4 th:text="${pricing.name}">시술명</h4>
+                <div class="pricing-item__right">
+                    <strong th:if="${pricing.price != null}"
+                            th:text="${#numbers.formatInteger(pricing.price, 0, 'COMMA')} + '원'">0원</strong>
+                    <strong class="price-inquiry" th:if="${pricing.price == null}">가격 문의</strong>
+                    <div class="pricing-item__admin" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin/pricing/{id}/form(id=${pricing.id})}">수정</a>
+                        <form th:action="@{/admin/pricing/{id}/delete(id=${pricing.id})}" method="post"
+                              onsubmit="return confirm('이 가격 메뉴를 삭제할까요?');">
+                            <input type="hidden" name="gender" th:value="${gender.name()}">
+                            <button type="submit">삭제</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            <p class="pricing-empty" th:if="${#lists.isEmpty(pricings.?[category.name() == 'BODY'])}">
+                등록된 BODY 메뉴가 없습니다.
+            </p>
+        </div>
+        <form class="pricing-order-form" sec:authorize="hasRole('ADMIN')"
+              th:action="@{/admin/pricing/order}" method="post"
+              th:attr="data-order-form=|${gender.name()}-BODY|">
+            <input type="hidden" name="gender" th:value="${gender.name()}">
+            <input type="hidden" name="category" value="BODY">
+            <button type="submit">순서 저장</button>
+        </form>
+    </section>
+</section>
+</body>
+</html>

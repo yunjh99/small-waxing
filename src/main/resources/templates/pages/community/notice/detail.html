@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+
+<head>
+    <title th:text="${notice.title}">공지사항 상세</title>
+    <meta name="description" content="스몰왁싱 공지사항 상세 페이지">
+
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/detail.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/notice/list.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+    </th:block>
+</head>
+
+<body>
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('notice', '공지사항', 'NOTICE')}"></div>
+</section>
+
+<section layout:fragment="content">
+    <div class="content">
+
+        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="commu-detail">
+
+            <!-- 상세 내용 -->
+            <div class="commu-detail__content">
+                <h2 class="commu-detail__title" th:text="${notice.title}">공지 제목</h2>
+                <div class="commu-detail__meta">
+                    <!-- 날짜 -->
+                    <span>
+                        <svg viewBox="0 0 24 24" width="14" height="14">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+
+                        <span th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}">
+                            2026-03-14
+                        </span>
+                    </span>
+                    <!-- 조회수 -->
+                    <span>
+                        <svg viewBox="0 0 24 24" width="14" height="14">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"
+                                  stroke="currentColor" stroke-width="2" fill="none"/>
+                            <circle cx="12" cy="12" r="3"
+                                    stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+
+                        <span th:text="'조회수 ' + ${notice.viewCount}">
+                            조회수 0
+                        </span>
+                    </span>
+                </div>
+
+                <!-- 본문 이미지 -->
+                <div class="commu-detail__body-image" th:if="${notice.bodyImageUrl != null}">
+                    <img th:src="${notice.bodyImageUrl}" alt="공지 이미지">
+                </div>
+                <div class="commu-detail__text" th:text="${notice.content}">
+                    공지 내용
+                </div>
+            </div>
+
+            <th:block th:replace="~{fragments/community/post-actions :: actions(
+                        @{/community/notices},
+                        @{/admin/notices/{id}/form(id=${notice.id})},
+                        @{/admin/notices/{id}/restore(id=${notice.id})},
+                        @{/admin/notices/{id}/delete(id=${notice.id})},
+                        @{/community/notices},
+                        @{/admin/notices(viewType='deleted')},
+                        ${viewType}
+            )}"></th:block>
+
+            <div class="commu-detail-page__list">
+                <th:block th:replace="~{fragments/community/notice-list :: list(${notices}, ${currentId})}"></th:block>
+            </div>
+
+        </div>
+    </div>
+
+    <th:block layout:fragment="pageScript"></th:block>
+</section>
+</body>
+</html>

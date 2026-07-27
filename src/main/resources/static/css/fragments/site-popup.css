@@ -1,0 +1,128 @@
+.site-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.55);
+    box-sizing: border-box;
+}
+
+.site-popup[hidden] {
+    display: none;
+}
+
+.site-popup__dialog {
+    width: min(520px, 100%);
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.site-popup__viewport {
+    position: relative;
+    overflow: hidden;
+}
+
+.site-popup__track {
+    display: flex;
+    transition: transform 0.45s ease;
+}
+
+.site-popup__slide {
+    flex: 0 0 100%;
+    margin: 0;
+}
+
+.site-popup__slide img {
+    display: block;
+    width: 100%;
+    max-height: 650px;
+    object-fit: contain;
+    background: #f5f5f5;
+}
+
+.site-popup__dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.34);
+    transform: translateX(-50%);
+}
+
+.site-popup__dots button {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.62);
+    cursor: pointer;
+}
+
+.site-popup__dots button.is-active {
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(199, 94, 94, 0.9);
+}
+
+.site-popup__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #ece7e3;
+}
+
+.site-popup__actions button {
+    padding: 15px 10px;
+    border: 0;
+    background: #fff;
+    color: #555;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.site-popup__actions button + button {
+    border-left: 1px solid #ece7e3;
+}
+
+@media (max-width: 900px) {
+    .site-popup {
+        align-items: flex-end;
+        padding: 12px;
+    }
+
+    .site-popup__dialog {
+        width: 100%;
+        max-width: 430px;
+        max-height: calc(100dvh - 24px);
+        border-radius: 16px 16px 8px 8px;
+    }
+
+    .site-popup__viewport {
+        max-height: calc(100dvh - 78px);
+    }
+
+    .site-popup__slide img {
+        width: 100%;
+        max-height: calc(100dvh - 78px);
+        object-fit: contain;
+    }
+
+    .site-popup__dots {
+        bottom: 10px;
+    }
+
+    .site-popup__actions button {
+        min-height: 52px;
+        padding: 13px 8px;
+        font-size: 13px;
+    }
+}

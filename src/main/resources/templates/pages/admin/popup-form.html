@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title th:text="${popup == null ? '팝업 추가' : '팝업 수정'}">팝업 추가</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/admin/popups.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <main class="popup-form-page">
+        <header>
+            <p>ADMIN</p>
+            <h1 th:text="${popup == null ? '팝업 추가' : '팝업 수정'}">팝업 추가</h1>
+        </header>
+
+        <div class="popup-admin__error" th:if="${error}" th:text="${error}"></div>
+
+        <form class="popup-form"
+              th:action="${popup == null} ? @{/admin/popups} : @{/admin/popups/{id}(id=${popup.id})}"
+              method="post" enctype="multipart/form-data">
+            <label for="title">관리용 제목</label>
+            <input id="title" name="title" type="text" required
+                   th:value="${popup == null ? '' : popup.title}">
+
+            <div class="popup-form__dates">
+                <label>노출 시작일
+                    <input name="startDate" type="date" required
+                           th:value="${popup == null ? '' : popup.startDate}">
+                </label>
+                <label>노출 종료일
+                    <input name="endDate" type="date" required
+                           th:value="${popup == null ? '' : popup.endDate}">
+                </label>
+            </div>
+
+            <label for="image">팝업 이미지 <span th:if="${popup != null}">(선택하지 않으면 기존 이미지 유지)</span></label>
+            <p class="popup-form__image-guide">
+                권장 크기 <strong>1040 × 1300px</strong>
+                <span>· 실제 최대 표시 크기 520 × 650px</span>
+            </p>
+            <input id="image" name="image" type="file"
+                   accept="image/jpeg,image/png,image/gif,image/webp"
+                   th:required="${popup == null}">
+            <img class="popup-form__preview" th:if="${popup != null}"
+                 th:src="${popup.imageUrl}" th:alt="${popup.title}">
+
+            <div class="popup-form__actions">
+                <a th:href="@{/admin/popups}">취소</a>
+                <button type="submit" th:text="${popup == null ? '등록하기' : '수정하기'}">등록하기</button>
+            </div>
+        </form>
+    </main>
+</section>
+</body>
+</html>

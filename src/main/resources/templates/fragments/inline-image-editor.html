@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<th:block th:fragment="slotEditor"
+          sec:authorize="hasRole('ADMIN')">
+    <button class="inline-image-edit-button"
+            type="button"
+            th:attr="data-inline-image-dialog=|inline-image-dialog-${editorId}|"
+            th:aria-label="|${editorLabel} 이미지 수정|">
+        <i class="bi bi-pencil" aria-hidden="true"></i>
+    </button>
+
+    <dialog class="inline-image-dialog" th:id="|inline-image-dialog-${editorId}|">
+        <form class="inline-image-dialog__form"
+              th:action="@{/admin/site-images/{slot}(slot=${editorSlot})}"
+              method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" name="returnTo" th:value="${editorReturnTo}">
+            <header>
+                <div>
+                    <span>ADMIN EDIT</span>
+                    <h3 th:text="|${editorLabel} 수정|">이미지 수정</h3>
+                </div>
+                <button type="button" data-inline-image-close aria-label="닫기">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="inline-image-dialog__preview">
+                <img th:src="${editorImageUrl}" th:alt="|현재 ${editorLabel}|">
+            </div>
+            <label>새 이미지 선택
+                <input type="file"
+                       name="image"
+                       accept="image/jpeg,image/png,image/gif,image/webp"
+                       required>
+            </label>
+            <p th:text="|권장 크기: ${editorRecommendedSize}|">권장 크기</p>
+            <button class="inline-image-dialog__submit" type="submit">이미지 교체</button>
+        </form>
+    </dialog>
+</th:block>
+
+<th:block th:fragment="galleryEditor"
+          sec:authorize="hasRole('ADMIN')">
+    <button class="inline-image-edit-button"
+            type="button"
+            th:attr="data-inline-image-dialog=|inline-image-dialog-${editorId}|"
+            th:aria-label="|${editorLabel} 이미지 수정|">
+        <i class="bi bi-pencil" aria-hidden="true"></i>
+    </button>
+
+    <dialog class="inline-image-dialog" th:id="|inline-image-dialog-${editorId}|">
+        <form class="inline-image-dialog__form"
+              th:action="@{/admin/site-images/gallery/{imageId}/replace(imageId=${editorImageId})}"
+              method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" name="returnTo" th:value="${editorReturnTo}">
+            <header>
+                <div>
+                    <span>ADMIN EDIT</span>
+                    <h3 th:text="|${editorLabel} 수정|">둘러보기 이미지 수정</h3>
+                </div>
+                <button type="button" data-inline-image-close aria-label="닫기">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="inline-image-dialog__preview">
+                <img th:src="${editorImageUrl}" th:alt="|현재 ${editorLabel}|">
+            </div>
+            <label>새 이미지 선택
+                <input type="file"
+                       name="image"
+                       accept="image/jpeg,image/png,image/gif,image/webp"
+                       required>
+            </label>
+            <p>권장 크기: 1200 × 650px</p>
+            <button class="inline-image-dialog__submit" type="submit">이미지 교체</button>
+        </form>
+    </dialog>
+</th:block>
+
+</body>
+</html>

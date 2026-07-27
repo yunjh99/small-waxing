@@ -1,0 +1,230 @@
+.popup-admin,
+.popup-form-page {
+    width: min(1160px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 90px 0 120px;
+}
+
+.popup-admin__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.popup-admin__header p,
+.popup-form-page header p {
+    margin: 0 0 10px;
+    color: #c75e5e;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.popup-admin__header h1,
+.popup-form-page header h1 {
+    margin: 0 0 10px;
+    color: #222;
+    font-size: 36px;
+}
+
+.popup-admin__header span {
+    color: #777;
+    font-size: 14px;
+}
+
+.popup-admin__header > a,
+.popup-admin-card__actions a,
+.popup-admin-card__actions button,
+.popup-form__actions a,
+.popup-form__actions button {
+    padding: 11px 17px;
+    border: 0;
+    border-radius: 6px;
+    background: #c75e5e;
+    color: #fff;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-admin__message,
+.popup-admin__error {
+    margin-bottom: 24px;
+    padding: 14px 17px;
+    border-radius: 6px;
+    background: #edf7f0;
+    color: #2f7d4a;
+}
+
+.popup-admin__error {
+    background: #fff0f0;
+    color: #b64040;
+}
+
+.popup-admin__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+}
+
+.popup-admin-card {
+    overflow: hidden;
+    border: 1px solid #e7e1dd;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.popup-admin-card > img {
+    display: block;
+    width: 100%;
+    height: 310px;
+    object-fit: contain;
+    background: #f5f5f5;
+}
+
+.popup-admin-card > div {
+    padding: 22px;
+}
+
+.popup-admin-card h2 {
+    margin: 0 0 10px;
+    color: #222;
+    font-size: 20px;
+}
+
+.popup-admin-card p {
+    margin: 0 0 20px;
+    color: #777;
+}
+
+.popup-admin-card__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.popup-admin-card__actions form {
+    margin: 0;
+}
+
+.popup-admin-card__actions a,
+.popup-admin-card__actions button {
+    padding: 8px 13px;
+    font-size: 13px;
+}
+
+.popup-admin-card__actions button {
+    background: #fff;
+    color: #b64040;
+    border: 1px solid #e5bcbc;
+}
+
+.popup-admin__empty {
+    grid-column: 1 / -1;
+    padding: 80px 20px;
+    color: #999;
+    text-align: center;
+}
+
+.popup-form-page header {
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.popup-form {
+    display: grid;
+    gap: 11px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 34px;
+    border: 1px solid #e7e1dd;
+    border-radius: 10px;
+}
+
+.popup-form label {
+    margin-top: 10px;
+    color: #444;
+    font-weight: 600;
+}
+
+.popup-form label span {
+    color: #999;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.popup-form__image-guide {
+    margin: -3px 0 2px;
+    color: #777;
+    font-size: 13px;
+}
+
+.popup-form__image-guide strong {
+    color: #c75e5e;
+}
+
+.popup-form__image-guide span {
+    color: #999;
+}
+
+.popup-form input {
+    min-height: 46px;
+    padding: 0 12px;
+    border: 1px solid #dcd4cd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.popup-form input[type="file"] {
+    padding: 9px;
+}
+
+.popup-form__dates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.popup-form__dates label {
+    display: grid;
+    gap: 9px;
+}
+
+.popup-form__preview {
+    width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    background: #f5f5f5;
+}
+
+.popup-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 22px;
+}
+
+.popup-form__actions a {
+    background: #eee9e4;
+    color: #555;
+}
+
+@media (max-width: 700px) {
+    .popup-admin__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .popup-admin__header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .popup-form {
+        padding: 24px 18px;
+    }
+
+    .popup-form__dates {
+        grid-template-columns: 1fr;
+    }
+}

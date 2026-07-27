@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>사이트 이미지 관리</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/admin/site-images.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <main class="site-image-admin">
+        <header class="site-image-admin__header">
+            <p>ADMIN</p>
+            <h1>사이트 이미지 관리</h1>
+            <span>이미지를 한 장씩 교체하거나 기존 기본 이미지로 복원할 수 있습니다.</span>
+        </header>
+
+        <nav class="site-image-admin__menus" aria-label="이미지 관리 메뉴">
+            <div class="site-image-admin__menu-row">
+                <strong>상위메뉴</strong>
+                <span class="site-image-admin__menu-divider" aria-hidden="true"></span>
+                <button class="is-active" type="button" data-image-parent="main">메인</button>
+                <button type="button" data-image-parent="smallwaxing">스몰왁싱</button>
+            </div>
+            <div class="site-image-admin__menu-row">
+                <strong>하위메뉴</strong>
+                <span class="site-image-admin__menu-divider" aria-hidden="true"></span>
+                <span class="site-image-admin__submenu-group" data-image-submenus="main">
+                    <button class="is-active" type="button" data-image-menu="main">메인 화면</button>
+                </span>
+                <span class="site-image-admin__submenu-group" data-image-submenus="smallwaxing" hidden>
+                    <button type="button" data-image-menu="special">스몰왁싱 특별함</button>
+                    <button type="button" data-image-menu="gallery">둘러보기</button>
+                </span>
+            </div>
+        </nav>
+
+        <div class="site-image-admin__message site-image-admin__message--success"
+             th:if="${message}" th:text="${message}"></div>
+        <div class="site-image-admin__message site-image-admin__message--error"
+             th:if="${error}" th:text="${error}"></div>
+
+        <div class="site-image-admin__grid">
+            <article class="site-image-card"
+                     th:each="item : ${images}"
+                     th:attr="data-image-category=${item.menuKey}"
+                     th:hidden="${item.menuKey != 'main'}">
+                <div class="site-image-card__preview">
+                    <img th:src="${item.imageUrl}" th:alt="${item.label}">
+                    <span th:text="${item.customImage ? '업로드 이미지' : '기본 이미지'}"></span>
+                </div>
+
+                <div class="site-image-card__body">
+                    <h2 th:text="${item.label}">이미지 이름</h2>
+                    <p th:text="${item.originalName}">파일명</p>
+                    <div class="site-image-card__size">
+                        <span>권장 크기</span>
+                        <strong th:text="${item.recommendedSize}">1920 × 820px</strong>
+                    </div>
+
+                    <form th:action="@{/admin/site-images/{slot}(slot=${item.slot})}"
+                          method="post" enctype="multipart/form-data">
+                        <label th:for="|image-${item.slot}|">새 이미지 선택</label>
+                        <input type="file"
+                               th:id="|image-${item.slot}|"
+                               name="image"
+                               accept="image/jpeg,image/png,image/gif,image/webp"
+                               required>
+                        <button type="submit">이미지 교체</button>
+                    </form>
+
+                    <form th:if="${item.customImage}"
+                          th:action="@{/admin/site-images/{slot}/default(slot=${item.slot})}"
+                          method="post">
+                        <button class="site-image-card__restore" type="submit">기본 이미지로 복원</button>
+                    </form>
+
+                    <div class="site-text-editor" th:if="${item.text != null}">
+                        <h3>문구 및 위치</h3>
+                        <form th:action="@{/admin/site-images/text/{slot}(slot=${item.text.slot})}"
+                              method="post">
+                            <label>제목
+                                <textarea name="title" rows="2" th:text="${item.text.title}"></textarea>
+                            </label>
+                            <label>영문 소제목
+                                <textarea name="subtitle" rows="2" th:text="${item.text.subtitle}"></textarea>
+                            </label>
+                            <label>설명
+                                <textarea name="description" rows="4" th:text="${item.text.description}"></textarea>
+                            </label>
+                            <button type="submit">문구 저장</button>
+                        </form>
+
+                        <form th:if="${item.text.customText}"
+                              th:action="@{/admin/site-images/text/{slot}/default(slot=${item.text.slot})}"
+                              method="post">
+                            <button class="site-image-card__restore" type="submit">기본 문구로 복원</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+
+            <article class="site-image-card"
+                     th:each="item, stat : ${galleryImages}"
+                     data-image-category="gallery"
+                     hidden>
+                <div class="site-image-card__preview">
+                    <img th:src="${item.imageUrl}" th:alt="|둘러보기 이미지 ${stat.count}|">
+                    <span th:text="|${stat.count}번째 이미지|"></span>
+                </div>
+                <div class="site-image-card__body">
+                    <h2 th:text="|둘러보기 이미지 ${stat.count}|">둘러보기 이미지</h2>
+                    <p th:text="${item.originalName}">파일명</p>
+                    <div class="site-image-card__size">
+                        <span>권장 크기</span>
+                        <strong>1200 × 650px</strong>
+                    </div>
+                    <form th:action="@{/admin/site-images/gallery/{id}/delete(id=${item.id})}"
+                          method="post"
+                          onsubmit="return confirm('이 이미지를 삭제하시겠습니까?')">
+                        <button class="site-image-card__delete"
+                                type="submit"
+                                th:disabled="${#lists.size(galleryImages) == 1}">이미지 삭제</button>
+                    </form>
+                </div>
+            </article>
+
+            <article class="site-image-card site-image-card--add"
+                     data-image-category="gallery"
+                     hidden>
+                <div class="site-image-card__body">
+                    <h2>둘러보기 이미지 추가</h2>
+                    <p>이미지는 마지막 순서에 추가됩니다.</p>
+                    <div class="site-image-card__size">
+                        <span>권장 크기</span>
+                        <strong>1200 × 650px</strong>
+                    </div>
+                    <form th:action="@{/admin/site-images/gallery}"
+                          method="post"
+                          enctype="multipart/form-data">
+                        <label for="gallery-image-add">추가할 이미지 선택</label>
+                        <input id="gallery-image-add"
+                               type="file"
+                               name="image"
+                               accept="image/jpeg,image/png,image/gif,image/webp"
+                               required>
+                        <button type="submit">이미지 추가</button>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </main>
+</section>
+<th:block layout:fragment="pageScript">
+    <script th:src="@{/js/pages/admin/site-images.js}"></script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title th:text="${pricingId == null ? '가격 메뉴 추가' : '가격 메뉴 수정'}">가격 메뉴 추가</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/pricing/pricing.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="pricing-form-page">
+        <header class="pricing-header">
+            <p>ADMIN</p>
+            <h1 th:text="${pricingId == null ? '가격 메뉴 추가' : '가격 메뉴 수정'}">가격 메뉴 추가</h1>
+            <span>가격을 입력하지 않으면 가격 문의로 표시됩니다.</span>
+        </header>
+
+        <form class="pricing-form"
+              th:action="${pricingId == null} ? @{/admin/pricing} : @{/admin/pricing/{id}(id=${pricingId})}"
+              th:object="${pricing}"
+              method="post">
+            <label for="gender">성별</label>
+            <select id="gender" th:field="*{gender}" required>
+                <option value="">성별 선택</option>
+                <option th:each="gender : ${genders}"
+                        th:value="${gender.name()}"
+                        th:text="${gender.label}"></option>
+            </select>
+            <p class="field-error" th:errors="*{gender}"></p>
+
+            <label for="category">구분</label>
+            <select id="category" th:field="*{category}" required>
+                <option value="">구분 선택</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.name()}"
+                        th:text="${category.label}"></option>
+            </select>
+            <p class="field-error" th:errors="*{category}"></p>
+
+            <label for="name">메뉴명</label>
+            <input id="name" type="text" th:field="*{name}" placeholder="예: 겨드랑이 왁싱" required>
+            <p class="field-error" th:errors="*{name}"></p>
+
+            <label for="price">가격</label>
+            <input id="price" type="number" min="0" step="100" th:field="*{price}" placeholder="비워두면 가격 문의">
+            <p class="field-error" th:errors="*{price}"></p>
+
+            <label for="displayOrder">노출 순서</label>
+            <input id="displayOrder" type="number" min="0" th:field="*{displayOrder}">
+            <p class="field-error" th:errors="*{displayOrder}"></p>
+
+            <div class="pricing-form-actions">
+                <a th:href="@{/pricing}">취소</a>
+                <button type="submit"
+                        th:text="${pricingId == null ? '추가하기' : '수정하기'}">추가하기</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

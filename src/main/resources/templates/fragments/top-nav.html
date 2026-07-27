@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<nav th:fragment="topNavFragment" class="top-nav">
+    <div class="top-nav__inner">
+        <div class="top-nav__left">
+            <a th:href="@{/}" class="top-nav__logo-text">SMALL</a>
+        </div>
+
+        <ul class="top-nav__menu">
+            <li>
+                <a th:href="@{/smallwaxing}">스몰왁싱</a>
+                <ul class="top-nav__submenu">
+                    <li><a th:href="@{/smallwaxing}">스몰왁싱 특별함</a></li>
+                    <li><a th:href="@{/smallwaxing/gallery}">둘러보기</a></li>
+                </ul>
+            </li>
+            <li>
+                <a th:href="@{/services/brazilian}">서비스</a>
+                <ul class="top-nav__submenu">
+                    <li><a th:href="@{/services/brazilian}">브라질리언왁싱</a></li>
+                    <li><a th:href="@{/services/body}">바디왁싱</a></li>
+                    <li><a th:href="@{/services/face}">페이스왁싱</a></li>
+                    <li><a th:href="@{/services/pregnant}">임산부왁싱</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/pricing}">가격안내</a></li>
+            <li>
+                <a th:href="@{/community/events}">커뮤니티</a>
+                <ul class="top-nav__submenu">
+                    <li><a th:href="@{/community/events}">이벤트</a></li>
+                    <li><a th:href="@{/community/notices}">공지사항</a></li>
+                    <li><a th:href="@{/community/faqs}">자주묻는질문</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/reservation}">예약안내</a></li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/site-images}">관리자</a>
+                <ul class="top-nav__submenu">
+                    <li><a th:href="@{/admin/analytics}">방문 통계</a></li>
+                    <li><a th:href="@{/admin/site-images}">이미지 관리</a></li>
+                    <li><a th:href="@{/admin/popups}">팝업 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="top-nav__right">
+            <form th:action="@{/logout}"
+                  method="post"
+                  sec:authorize="isAuthenticated()">
+                <button type="submit">로그아웃</button>
+            </form>
+
+            <button class="hamburger-menu"
+                    type="button"
+                    onclick="toggleMenu(this)"
+                    aria-label="메인 메뉴"
+                    aria-controls="main-overlay-menu"
+                    aria-expanded="false">
+                <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
+                    <path class="line line1"
+                          d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"/>
+                    <path class="line line2" d="M 20,50 H 80"/>
+                    <path class="line line3"
+                          d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="main-overlay-menu" class="overlay overlay-boxify">
+            <nav class="overlay__menu">
+                <ul class="overlay__menu-list">
+                    <li>
+                        <a th:href="@{/smallwaxing}">스몰왁싱</a>
+                        <button class="overlay__submenu-toggle" type="button"
+                                aria-label="스몰왁싱 하위 메뉴 열기"
+                                aria-expanded="false" aria-controls="overlay-smallwaxing-submenu">
+                            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul id="overlay-smallwaxing-submenu" class="overlay__submenu">
+                            <li><a th:href="@{/smallwaxing}">스몰왁싱 특별함</a></li>
+                            <li><a th:href="@{/smallwaxing/gallery}">둘러보기</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a th:href="@{/services/brazilian}">서비스</a>
+                        <button class="overlay__submenu-toggle" type="button"
+                                aria-label="서비스 하위 메뉴 열기"
+                                aria-expanded="false" aria-controls="overlay-service-submenu">
+                            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul id="overlay-service-submenu" class="overlay__submenu">
+                            <li><a th:href="@{/services/brazilian}">브라질리언왁싱</a></li>
+                            <li><a th:href="@{/services/body}">바디왁싱</a></li>
+                            <li><a th:href="@{/services/face}">페이스왁싱</a></li>
+                            <li><a th:href="@{/services/pregnant}">임산부왁싱</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/pricing}">가격안내</a></li>
+                    <li>
+                        <a th:href="@{/community/events}">커뮤니티</a>
+                        <button class="overlay__submenu-toggle" type="button"
+                                aria-label="커뮤니티 하위 메뉴 열기"
+                                aria-expanded="false" aria-controls="overlay-community-submenu">
+                            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul id="overlay-community-submenu" class="overlay__submenu">
+                            <li><a th:href="@{/community/events}">이벤트</a></li>
+                            <li><a th:href="@{/community/notices}">공지사항</a></li>
+                            <li><a th:href="@{/community/faqs}">자주묻는질문</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a th:href="@{/reservation}">예약안내</a>
+                        <button class="overlay__submenu-toggle" type="button"
+                                aria-label="예약하기 하위 메뉴 열기"
+                                aria-expanded="false" aria-controls="overlay-reservation-submenu">
+                            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul id="overlay-reservation-submenu" class="overlay__submenu">
+                            <li><a th:href="@{/reservation}">예약 안내</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin/site-images}">관리자</a>
+                        <button class="overlay__submenu-toggle" type="button"
+                                aria-label="관리자 하위 메뉴 열기"
+                                aria-expanded="false" aria-controls="overlay-admin-submenu">
+                            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul id="overlay-admin-submenu" class="overlay__submenu">
+                            <li><a th:href="@{/admin/analytics}">방문 통계</a></li>
+                            <li><a th:href="@{/admin/site-images}">이미지 관리</a></li>
+                            <li><a th:href="@{/admin/popups}">팝업 관리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</nav>
+
+</html>

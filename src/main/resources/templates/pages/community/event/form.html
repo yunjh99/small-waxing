@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>메인</title>
+    <meta name="description" content="스몰왁싱 이벤트 작성 페이지">
+    <!-- 🔹 페이지 전용 CSS -->
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/form.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+
+    </th:block>
+</head>
+<body>
+<!-- 상단 이미지 영역 fragment -->
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('event', '이벤트', 'EVENT')}"></div>
+</section>
+<section layout:fragment="content">
+    <div class="content">
+        <!-- --- -->
+        <!-- write 공간 -->
+        <div class="commu-form">
+            <div class="commu-form__body">
+                <div class="form-card">
+                    <form th:action="${event == null} ? @{/admin/events} : @{/admin/events/{id}(id=${event.id})}"
+                          method="post" id="writeForm" enctype="multipart/form-data">
+
+                        <div class="commu-write-container">
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="title">제목</label>
+                                    <input type="text" id="title" name="title" placeholder="소식 제목을 입력하세요"
+                                           th:value="${event != null} ? ${event.title} : ''" required> <!-- 'news'에서 'event'로 변경 -->
+                                </div>
+                            </div>
+
+                            <!-- 이벤트 진행 기간 입력 필드 추가 -->
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="startDate">시작 날짜</label>
+                                    <input type="date" id="startDate" name="startDate"
+                                           th:value="${event != null} ? ${event.startDate} : ''" required>
+                                </div>
+                                <div class="input-item">
+                                    <label for="endDate">종료 날짜</label>
+                                    <input type="date" id="endDate" name="endDate"
+                                           th:value="${event != null} ? ${event.endDate} : ''" required>
+                                </div>
+                            </div>
+
+
+
+                            <div class="input-group">
+                                <div class="input-item">
+                                    <label for="content">내용</label>
+                                    <textarea id="content" name="content" placeholder="썸네일 크기(570x570), 본문 이미지 크기(width:1200, height: 상관없음)"
+                                              th:text="${event != null} ? ${event.content} : ''"></textarea> <!-- 'news'에서 'event'로 변경 -->
+                                </div>
+                            </div>
+
+                            <div class="input-group no-flex">
+
+                                <!-- 썸네일 -->
+                                <div class="input-item">
+                                    <label for="thumbnail">썸네일</label>
+
+                                    <input type="text" id="thumbnailInput"
+                                           placeholder="썸네일 1개 업로드 (예: 570x570)"
+                                           readonly>
+
+                                    <label for="thumbnail" class="file-upload-label">썸네일 첨부</label>
+
+                                    <input type="file"
+                                           id="thumbnail"
+                                           name="thumbnail"
+                                           accept="image/*"
+                                           style="display:none;">
+
+                                    <p id="thumbnail-warning" style="color:red; display:none;"></p>
+                                </div>
+
+                                <!-- 썸네일 기존/미리보기 표시 -->
+                                <div class="input-item">
+                                    <label></label>
+                                    <div class="file-list">
+                                        <ul id="existingThumbnailList" class="existingFiles-List">
+                                            <li th:if="${event != null and event.thumbnailUrl != null}">
+                                                <div class="file-item">
+                                                    <a th:if="${event.thumbnailUrl != null}"
+                                                       th:href="${event.thumbnailUrl}"
+                                                       target="_blank"
+                                                       th:text="${event.thumbnailName}">
+                                                    </a>
+                                                    <button type="button" class="delete-btn" id="btnDeleteThumbnail">삭제</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <!-- ✅ 서버로 삭제 의도 전달 -->
+                                        <input type="hidden" name="deleteThumbnail" id="deleteThumbnail" value="false">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="input-group no-flex">
+
+                                <!-- 본문 이미지 -->
+                                <div class="input-item">
+                                    <label for="bodyImage">본문 이미지</label>
+
+                                    <input type="text" id="bodyImageInput"
+                                           placeholder="본문 이미지 1개 업로드 (예: width 1200)"
+                                           readonly>
+
+                                    <label for="bodyImage" class="file-upload-label">본문 이미지 첨부</label>
+
+                                    <input type="file"
+                                           id="bodyImage"
+                                           name="bodyImage"
+                                           accept="image/*"
+                                           style="display:none;">
+
+                                    <p id="bodyImage-warning" style="color:red; display:none;"></p>
+                                </div>
+
+                                <!-- 본문 이미지 기존/미리보기 표시 -->
+                                <div class="input-item">
+                                    <label></label>
+                                    <div class="file-list">
+                                        <ul id="existingBodyImageList" class="existingFiles-List">
+                                            <li th:if="${event != null and event.bodyImageUrl != null}">
+                                                <div class="file-item">
+                                                    <a th:if="${event.bodyImageUrl != null}"
+                                                       th:href="${event.bodyImageUrl}"
+                                                       target="_blank"
+                                                       th:text="${event.bodyImageName}">
+                                                    </a>
+                                                    <button type="button" class="delete-btn" id="btnDeleteBodyImage">삭제</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <!-- ✅ 서버로 삭제 의도 전달 -->
+                                        <input type="hidden" name="deleteBodyImage" id="deleteBodyImage" value="false">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="input-item submit-button-wrapper">
+                                <button type="submit" class="submit-button" id="submit-button"
+                                        th:text="${event == null} ? '등록하기' : '수정하기'"></button> <!-- 'news'에서 'event'로 변경 -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- --- -->
+
+        </div>
+    </div>
+ <!-- 🔹 페이지 전용 JS -->
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/js/pages/community/form.js}" defer></script>
+    </th:block>
+</section>
+</body>
+</html>

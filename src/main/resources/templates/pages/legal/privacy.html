@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>개인정보처리방침</title>
+    <meta name="description" content="스몰왁싱 개인정보처리방침">
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/legal/legal.css}">
+    </th:block>
+</head>
+<body>
+<article layout:fragment="content" class="legal-page">
+    <header class="legal-header">
+        <p>PRIVACY POLICY</p>
+        <h1>개인정보처리방침</h1>
+        <span>시행일: 2026년 7월 27일</span>
+    </header>
+    <div class="legal-summary">
+        <strong>한눈에 보기</strong>
+        <p>이 홈페이지는 회원가입, 예약 신청 또는 결제를 직접 받지 않습니다. 이름, 전화번호, 이메일을 홈페이지에서 입력받지 않으며 방문 통계를 위한 최소한의 정보만 1년간 처리합니다.</p>
+    </div>
+    <div class="legal-body">
+        <section>
+            <h2>1. 개인정보의 처리 목적</h2>
+            <p>스몰왁싱은 홈페이지 방문 현황 분석, 이용 통계 작성, 서비스 품질 및 콘텐츠 개선을 위해 방문 정보를 처리합니다. 수집한 정보는 이 목적 외의 용도로 이용하지 않습니다.</p>
+        </section>
+        <section>
+            <h2>2. 처리하는 항목 및 수집 방법</h2>
+            <div class="legal-table-wrap">
+                <table>
+                    <thead><tr><th>구분</th><th>처리 항목</th><th>수집 방법</th></tr></thead>
+                    <tbody>
+                    <tr><td>방문 통계</td><td>무작위 방문자 식별값(UUID), 방문 페이지 경로, 접속 일시, 유입경로 유형, 기기 유형</td><td>홈페이지 방문 시 자동 생성</td></tr>
+                    <tr><td>쿠키</td><td><code>waxing_visitor</code> 방문자 식별 쿠키</td><td>이용자의 브라우저에 자동 저장</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>홈페이지는 방문 통계를 위해 이름, 전화번호, 이메일 및 주민등록번호를 수집하지 않습니다.</p>
+        </section>
+        <section>
+            <h2>3. 처리 및 보유기간</h2>
+            <ul>
+                <li>방문 통계 기록: 수집일로부터 1년</li>
+                <li>방문자 식별 쿠키: 생성일로부터 1년 또는 이용자가 직접 삭제할 때까지</li>
+            </ul>
+            <p>보유기간이 지난 방문 통계 기록은 매일 자동 삭제합니다.</p>
+        </section>
+        <section>
+            <h2>4. 개인정보의 제3자 제공</h2>
+            <p>스몰왁싱은 홈페이지에서 처리하는 개인정보를 제3자에게 제공하지 않습니다. 네이버, 카카오 또는 인스타그램으로 이동한 이후에는 해당 서비스 운영자의 개인정보처리방침이 적용됩니다.</p>
+        </section>
+        <section>
+            <h2>5. 개인정보 처리업무의 위탁</h2>
+            <p>현재 홈페이지 방문 통계 처리업무를 외부 업체에 위탁하지 않습니다. 향후 위탁이 발생할 경우 위탁받는 자와 위탁업무를 이 처리방침을 통해 공개하겠습니다.</p>
+        </section>
+        <section>
+            <h2>6. 개인정보의 파기</h2>
+            <ol>
+                <li>보유기간이 지난 방문 통계 기록은 데이터베이스에서 삭제합니다.</li>
+                <li>방문자 쿠키는 보유기간 만료 시 삭제되며 이용자가 브라우저 설정에서 직접 삭제할 수 있습니다.</li>
+            </ol>
+        </section>
+        <section>
+            <h2>7. 쿠키의 사용과 거부 방법</h2>
+            <p>홈페이지는 방문자 수를 중복 집계하지 않기 위해 쿠키를 사용합니다. 이용자는 브라우저의 개인정보·보안 설정에서 쿠키 저장을 거부하거나 기존 쿠키를 삭제할 수 있으며, 쿠키를 거부해도 기본 정보 열람에는 제한이 없습니다.</p>
+        </section>
+        <section>
+            <h2>8. 정보주체의 권리와 행사 방법</h2>
+            <p>이용자는 개인정보의 열람, 정정, 삭제 및 처리정지를 요구할 수 있습니다. 무작위 방문자 식별값만으로 본인 확인이 어려운 경우 요청 처리가 제한될 수 있으며, 매장은 그 사유를 안내합니다. 요청은 아래 문의처로 할 수 있습니다.</p>
+        </section>
+        <section>
+            <h2>9. 개인정보의 안전성 확보조치</h2>
+            <p>스몰왁싱은 관리자 접근 권한 제한, 관리자 비밀번호 암호화, 개인정보 처리시스템 접근 통제 및 보유기간 경과 정보의 자동 삭제 조치를 시행합니다.</p>
+        </section>
+        <section>
+            <h2>10. 개인정보 관련 문의</h2>
+            <dl>
+                <div><dt>담당</dt><dd>대표자 윤규원</dd></div>
+                <div><dt>전화</dt><dd>010-9587-8702</dd></div>
+                <div><dt>주소</dt><dd>경기 성남시 분당구 판교역로 109 B동 B221호</dd></div>
+            </dl>
+            <p>개인정보 침해 상담은 개인정보침해 신고센터(국번 없이 118) 또는 개인정보 분쟁조정위원회를 이용할 수 있습니다.</p>
+        </section>
+        <section>
+            <h2>11. 처리방침의 변경</h2>
+            <p>처리방침이 변경되는 경우 시행 전에 홈페이지를 통해 안내합니다.</p>
+        </section>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,117 @@
+/* ===== 테이블 ===== */
+.notice-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #c75e5e;
+    background: #fff;
+    table-layout: fixed;
+}
+
+.notice-table tbody td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    color: #333;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.notice-table tbody tr:hover {
+    background: #fcfcfc;
+}
+
+/* ===== 각 영역 너비 확인용 ===== */
+.notice-table__num {
+    width: 80px;
+}
+
+.notice-table__title {
+    width: auto;
+    text-align: left !important;
+}
+
+.notice-table__user {
+    width: 80px;
+}
+
+.notice-table__date {
+    width: 140px;
+}
+
+/* ===== 제목 링크 ===== */
+.notice-table__title a {
+    color: #222;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notice-table__title a:hover {
+    text-decoration: underline;
+}
+
+/* ===== 빈 상태 ===== */
+.notice-empty {
+    padding: 40px 20px;
+    border-top: 2px solid #222;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 15px;
+    color: #777;
+    background: #fff;
+}
+
+/* ===== 하단 버튼 영역 ===== */
+.list-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.list-actions__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 96px;
+    padding: 10px 16px;
+    background: #c75e5e;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.list-actions__btn:hover {
+    background: #b44f4f;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 768px) {
+    .notice-table tbody td {
+        padding: 13px 8px;
+        font-size: 14px;
+    }
+
+    .notice-table__num,
+    .notice-table__user {
+        display: none;
+    }
+
+    .notice-table__title a {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .notice-table__date {
+        width: 96px;
+        padding-left: 4px !important;
+        color: #777 !important;
+        font-size: 13px !important;
+    }
+}

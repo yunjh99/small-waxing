@@ -1,0 +1,38 @@
+.legal-page {
+    --legal-ink: #292621;
+    --legal-muted: #706a63;
+    --legal-line: #e8e2da;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 110px 30px 130px;
+    color: var(--legal-ink);
+}
+
+.legal-header { padding-bottom: 42px; border-bottom: 2px solid var(--legal-ink); }
+.legal-header p { margin-bottom: 12px; color: #a98662; font-size: 12px; font-weight: 700; letter-spacing: .2em; }
+.legal-header h1 { margin-bottom: 16px; font-size: clamp(36px, 5vw, 54px); font-weight: 500; letter-spacing: -.05em; }
+.legal-header span { color: var(--legal-muted); font-size: 13px; }
+.legal-summary { margin: 42px 0 12px; padding: 28px 30px; background: #f7f3ed; }
+.legal-summary strong { display: block; margin-bottom: 8px; font-size: 16px; }
+.legal-summary p { color: var(--legal-muted); font-size: 14px; line-height: 1.75; }
+.legal-body section { padding: 38px 0; border-bottom: 1px solid var(--legal-line); }
+.legal-body h2 { margin-bottom: 18px; font-size: 20px; letter-spacing: -.025em; }
+.legal-body p, .legal-body li, .legal-body dd { color: var(--legal-muted); font-size: 14px; line-height: 1.85; }
+.legal-body ol, .legal-body ul { padding-left: 22px; }
+.legal-body li + li { margin-top: 6px; }
+.legal-body dl { display: grid; gap: 10px; }
+.legal-body dl div { display: grid; grid-template-columns: 90px 1fr; }
+.legal-body dt { font-size: 14px; font-weight: 700; }
+.legal-table-wrap { overflow-x: auto; margin-bottom: 18px; }
+.legal-body table { width: 100%; min-width: 650px; border-collapse: collapse; }
+.legal-body th, .legal-body td { padding: 15px; border: 1px solid var(--legal-line); text-align: left; font-size: 13px; line-height: 1.65; }
+.legal-body th { background: #f7f3ed; }
+.legal-body td { color: var(--legal-muted); }
+
+@media (max-width: 700px) {
+    .legal-page { padding: 76px 20px 95px; }
+    .legal-header { padding-bottom: 30px; }
+    .legal-summary { margin-top: 30px; padding: 23px 20px; }
+    .legal-body section { padding: 30px 0; }
+    .legal-body dl div { grid-template-columns: 72px 1fr; }
+}

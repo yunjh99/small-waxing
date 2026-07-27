@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+
+<head>
+    <title th:text="${event.title}">이벤트 상세</title>
+    <meta name="description" content="스몰왁싱 이벤트 상세 페이지">
+
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/detail.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/event/list.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+    </th:block>
+</head>
+
+<body>
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('event', '이벤트', 'EVENT')}"></div>
+</section>
+
+
+<section layout:fragment="content">
+    <div class="content">
+
+        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="commu-detail">
+
+            <h1 th:text="${event.title}">이벤트 제목</h1>
+            <p>
+                <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd')}">시작일</span>
+                ~
+                <span th:text="${#temporals.format(event.endDate, 'yyyy.MM.dd')}">종료일</span>
+            </p>
+
+            <div class="commu-detail__content" th:text="${event.content}">이벤트 내용</div>
+
+            <!-- 본문 이미지 -->
+            <div class="commu-detail__body-image" th:if="${event.bodyImageUrl != null}">
+                <img th:src="${event.bodyImageUrl}" alt="이벤트 이미지">
+            </div>
+
+            <!-- 관리자에서만 post-actions 노출 -->
+            <th:block th:replace="~{fragments/community/post-actions :: actions(
+            @{/community/events},
+            @{/admin/events/{id}/form(id=${event.id})},
+            @{/admin/events/{id}/restore(id=${event.id})},
+            @{/admin/events/{id}/delete(id=${event.id})},
+            @{/community/events},
+            @{/admin/events(viewType='deleted')},
+            ${viewType}
+            )}"></th:block>
+
+            <div class="commu-detail-page__list">
+                <th:block th:replace="~{fragments/community/event-list :: list(${events}, ${currentId})}"></th:block>
+            </div>
+
+
+        </div>
+    </div>
+
+    <th:block layout:fragment="pageScript"></th:block>
+</section>
+</body>
+</html>

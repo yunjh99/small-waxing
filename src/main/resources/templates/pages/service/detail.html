@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title th:text="${heroText.title}">왁싱 서비스</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/service/service.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="section-top">
+    <div class="page-hero">
+        <div class="page-hero__img page-hero__img--service"
+             th:style="|--hero-image: url('${heroImageUrl}')|">
+            <div class="page-hero__info page-hero__info--service">
+                <p class="page-hero__eyebrow" th:text="${heroText.subtitle}">BRAZILIAN WAXING</p>
+                <h1 class="page-hero__title" th:text="${heroText.title}">브라질리언왁싱</h1>
+                <p class="page-hero__description" th:text="${heroText.description}"></p>
+            </div>
+
+            <nav class="page-nav" aria-label="왁싱 서비스 메뉴">
+                <ul class="page-nav__list">
+                    <li class="page-nav__item"
+                        th:classappend="${activeService == 'brazilian'} ? ' page-nav__item--active'">
+                        <a class="page-nav__link" th:href="@{/services/brazilian}">브라질리언왁싱</a>
+                    </li>
+                    <li class="page-nav__item"
+                        th:classappend="${activeService == 'body'} ? ' page-nav__item--active'">
+                        <a class="page-nav__link" th:href="@{/services/body}">바디왁싱</a>
+                    </li>
+                    <li class="page-nav__item"
+                        th:classappend="${activeService == 'face'} ? ' page-nav__item--active'">
+                        <a class="page-nav__link" th:href="@{/services/face}">페이스왁싱</a>
+                    </li>
+                    <li class="page-nav__item"
+                        th:classappend="${activeService == 'pregnant'} ? ' page-nav__item--active'">
+                        <a class="page-nav__link" th:href="@{/services/pregnant}">임산부왁싱</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section layout:fragment="content">
+    <div class="service-page">
+        <div class="service-intro">
+            <div class="service-intro__content">
+                <p class="service-page__eyebrow" th:text="${contentText.subtitle}">WAXING SERVICE</p>
+                <div class="service-intro__title-row">
+                    <h2 th:text="${contentText.title}">섬세하고 편안한 왁싱</h2>
+                    <button class="service-admin-edit service-admin-edit--text"
+                            type="button"
+                            data-edit-dialog="service-text-dialog"
+                            sec:authorize="hasRole('ADMIN')"
+                            aria-label="사진 옆 문구 수정"
+                            title="문구 수정">
+                        <i class="bi bi-pencil" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <p class="service-page__description" th:text="${contentText.description}">
+                    피부 컨디션에 맞춘 섬세한 왁싱을 경험해 보세요.
+                </p>
+                <a class="service-page__pricing" th:href="@{/pricing}">가격 안내 보기</a>
+            </div>
+            <figure class="service-intro__visual">
+                <img th:src="${heroImageUrl}" th:alt="|${heroText.title} 시술 이미지|">
+                <figcaption th:text="${heroText.title}">왁싱 서비스</figcaption>
+                <button class="service-admin-edit service-admin-edit--image"
+                        type="button"
+                        data-edit-dialog="service-image-dialog"
+                        sec:authorize="hasRole('ADMIN')"
+                        aria-label="서비스 이미지 수정">
+                    <i class="bi bi-pencil" aria-hidden="true"></i>
+                </button>
+            </figure>
+        </div>
+
+        <section class="service-benefits" th:aria-label="|${heroText.title} 장점|">
+            <div class="service-benefits__heading">
+                <span>WHY SMALL WAXING</span>
+                <h3 th:text="|${heroText.title} 장점|">왁싱 서비스 장점</h3>
+            </div>
+            <div class="service-benefits__grid">
+                <article class="service-benefit" th:each="benefit : ${serviceContent.benefits}">
+                    <div class="service-benefit__icon">
+                        <i class="bi" th:classappend="${benefit.icon}" aria-hidden="true"></i>
+                    </div>
+                    <h4 th:text="${benefit.title}">맞춤 관리</h4>
+                    <p th:text="${benefit.description}">피부 상태에 맞춰 세심하게 관리합니다.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <dialog class="service-edit-dialog" id="service-text-dialog" sec:authorize="hasRole('ADMIN')">
+        <form class="service-edit-dialog__form"
+              th:action="@{/admin/site-images/text/{slot}(slot=${serviceContent.contentTextSlot})}"
+              method="post">
+            <input type="hidden" name="returnTo" th:value="|/services/${activeService}|">
+            <header>
+                <div>
+                    <span>ADMIN EDIT</span>
+                    <h3>본문 문구 수정</h3>
+                </div>
+                <button type="button" data-close-dialog aria-label="닫기"><i class="bi bi-x-lg"></i></button>
+            </header>
+            <label>제목
+                <textarea name="title" rows="2" required th:text="${contentText.title}"></textarea>
+            </label>
+            <label>영문 소제목
+                <textarea name="subtitle" rows="2" th:text="${contentText.subtitle}"></textarea>
+            </label>
+            <label>설명
+                <textarea name="description" rows="5" required th:text="${contentText.description}"></textarea>
+            </label>
+            <button class="service-edit-dialog__submit" type="submit">문구 저장</button>
+        </form>
+    </dialog>
+
+    <dialog class="service-edit-dialog" id="service-image-dialog" sec:authorize="hasRole('ADMIN')">
+        <form class="service-edit-dialog__form"
+              th:action="@{/admin/site-images/{slot}(slot=${serviceContent.imageSlot})}"
+              method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" name="returnTo" th:value="|/services/${activeService}|">
+            <header>
+                <div>
+                    <span>ADMIN EDIT</span>
+                    <h3>서비스 이미지 수정</h3>
+                </div>
+                <button type="button" data-close-dialog aria-label="닫기"><i class="bi bi-x-lg"></i></button>
+            </header>
+            <div class="service-edit-dialog__preview">
+                <img th:src="${heroImageUrl}" th:alt="|현재 ${heroText.title} 이미지|">
+            </div>
+            <label>새 이미지 선택
+                <input type="file" name="image" accept="image/jpeg,image/png,image/gif,image/webp" required>
+            </label>
+            <p class="service-edit-dialog__help">권장 크기: 1751 × 898px</p>
+            <button class="service-edit-dialog__submit" type="submit">이미지 교체</button>
+        </form>
+    </dialog>
+</section>
+<th:block layout:fragment="pageScript">
+    <script th:src="@{/js/pages/service/service-edit.js}" defer></script>
+</th:block>
+</body>
+</html>

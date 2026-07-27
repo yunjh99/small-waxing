@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>둘러보기</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/smallwaxing/smallwaxing.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/smallwaxing/smallwaxing-hero :: hero('gallery', '둘러보기', 'GALLERY')}"></div>
+</section>
+<section layout:fragment="content">
+    <div class="smallwaxing-page">
+        <h2>스몰왁싱 공간</h2>
+        <p>편안하고 쾌적한 스몰왁싱 매장 모습을 소개합니다.</p>
+
+        <section class="smallwaxing-gallery" aria-label="스몰왁싱 공간 사진">
+            <div class="smallwaxing-gallery__viewport">
+                <div class="smallwaxing-gallery__track">
+                    <figure class="smallwaxing-gallery__slide inline-image-edit-host"
+                            th:each="image, stat : ${galleryImages}">
+                        <img th:src="${image.imageUrl}"
+                             th:alt="|스몰왁싱 공간 사진 ${stat.count}|">
+                        <th:block th:replace="~{fragments/inline-image-editor :: galleryEditor}"
+                                  th:with="editorId=|gallery-slide-${image.id}|, editorImageId=${image.id}, editorImageUrl=${image.imageUrl}, editorLabel=|둘러보기 사진 ${stat.count}|, editorReturnTo='/smallwaxing/gallery'"></th:block>
+                    </figure>
+                </div>
+
+                <button class="smallwaxing-gallery__button smallwaxing-gallery__button--prev"
+                        type="button" aria-label="이전 사진">&lt;</button>
+                <button class="smallwaxing-gallery__button smallwaxing-gallery__button--next"
+                        type="button" aria-label="다음 사진">&gt;</button>
+            </div>
+
+            <p class="smallwaxing-gallery__counter" aria-live="polite">
+                <span data-gallery-current>1</span>
+                <span>/</span>
+                <span th:text="${#lists.size(galleryImages)}">1</span>
+            </p>
+        </section>
+    </div>
+</section>
+<th:block layout:fragment="pageScript">
+    <script th:src="@{/js/pages/smallwaxing/gallery.js}"></script>
+</th:block>
+</body>
+</html>

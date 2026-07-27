@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/default-layout}">
+
+<head>
+    <title>메인</title>
+    <meta name="description" content="스몰왁싱 이벤트 페이지">
+    <!-- 🔹 페이지 전용 CSS -->
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/event/list.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+    </th:block>
+</head>
+<body>
+<!-- 상단 이미지 영역 fragment -->
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('event', '이벤트', 'EVENT')}"></div>
+</section>
+
+
+<section layout:fragment="content">
+    <div class="content">
+
+        <!-- 이벤트 목록 -->
+        <div class="commu-list">
+
+            <!-- 관리자에서만 탭 노출 -->
+            <div class="commu-tabs" sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/events(viewType='upcoming')}"
+                   th:classappend="${viewType=='upcoming'} ? 'is-active' : ''">
+                    예정
+                </a>
+                <a th:href="@{/admin/events(viewType='active')}"
+                   th:classappend="${viewType=='active'} ? 'is-active' : ''">
+                    진행중
+                </a>
+                <a th:href="@{/admin/events(viewType='ended')}"
+                   th:classappend="${viewType=='ended'} ? 'is-active' : ''">
+                    종료된
+                </a>
+                <a th:href="@{/admin/events(viewType='deleted')}"
+                   th:classappend="${viewType=='deleted'} ? 'is-active' : ''">
+                    삭제된
+                </a>
+            </div>
+
+            <!-- 카드 리스트 -->
+            <ul class="event-cards" th:if="${events != null and !#lists.isEmpty(events.content)}">
+                <li class="event-card" th:each="event : ${events.content}">
+                    <a class="event-card__link"
+                       th:href="${adminView}
+                        ? @{/admin/events/{eventId}(eventId=${event.id}, viewType=${viewType})}
+                        : @{/community/events/{eventId}(eventId=${event.id})}">
+
+                        <!-- 썸네일 -->
+                        <div class="event-card__thumb">
+                            <img class="event-card__img"
+                                 th:src="${event.thumbnailUrl}"
+                                 th:alt="${event.title}" />
+                        </div>
+
+                        <!-- 텍스트 -->
+                        <div class="event-card__body">
+                            <h3 class="event-card__title" th:text="${event.title}">이벤트 제목</h3>
+                            <p class="event-card__date">
+                                <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd')}">2025.01.01</span>
+                                ~
+                                <span th:text="${#temporals.format(event.endDate, 'yyyy.MM.dd')}">2025.01.31</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="commu-empty"
+                 th:if="${events == null or events.empty}">
+                <p>등록된 이벤트가 없습니다.</p>
+            </div>
+
+
+            <!-- ✅ 하단 작업 버튼 영역: 관리자에서만 -->
+            <div class="list-actions" sec:authorize="hasRole('ADMIN')">
+                <a class="list-actions__btn"
+                   th:href="@{/admin/events/form}">
+                    글쓰기
+                </a>
+            </div>
+            <!-- 페이지네이션 : 항상 노출 -->
+            <nav class="pagination">
+                <ul class="pagination__list">
+
+                    <!-- 이전 -->
+                    <li class="pagination__item" th:classappend="${events.first} ? 'is-disabled'">
+                        <a class="pagination__link" th:if="${events.first}" href="#"><</a>
+
+                        <!-- ✅ list에서 쓰면 /community/events?page=...
+                             ✅ detail에서 쓰면 /community/events/{id}?page=... 로 가게 분기 -->
+                        <a class="pagination__link" th:unless="${events.first}"
+                           th:href="${adminView}
+                                ? @{/admin/events(viewType=${viewType}, page=${events.number - 1})}
+                                : @{/community/events(page=${events.number - 1})}">
+                            이전
+                        </a>
+                    </li>
+
+                    <!-- 현재 페이지 번호만 표시 -->
+                    <li class="pagination__item is-active">
+                        <span class="pagination__link" th:text="${events.number + 1}">1</span>
+                    </li>
+
+
+                    <!-- 다음 -->
+                    <li class="pagination__item" th:classappend="${events.last} ? 'is-disabled'">
+                        <a class="pagination__link" th:if="${events.last}" href="#">></a>
+
+                        <a class="pagination__link" th:unless="${events.last}"
+                           th:href="${adminView}
+                                ? @{/admin/events(viewType=${viewType}, page=${events.number + 1})}
+                                : @{/community/events(page=${events.number + 1})}">
+                            다음
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </div>
+    <!-- 🔹 페이지 전용 JS -->
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/js/pages/community/event/event.js}" defer></script>
+    </th:block>
+</section>
+</body>
+</html>

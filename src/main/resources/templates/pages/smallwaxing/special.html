@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>스몰왁싱 특별함</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/smallwaxing/smallwaxing.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/smallwaxing/smallwaxing-hero :: hero('special', '스몰왁싱 특별함', 'ABOUT SMALL')}"></div>
+</section>
+<section layout:fragment="content">
+    <div class="smallwaxing-page">
+        <h2>왁싱의 기준, 스몰왁싱</h2>
+        <p>스몰왁싱은 오랜 경험과 섬세한 기술을 바탕으로 <br> 고객 한 분 한 분의 피부 상태와 컨디션에 맞는 왁싱을 제공합니다</p>
+
+        <section class="smallwaxing-stats" aria-label="스몰왁싱 주요 경력과 실적">
+            <div class="smallwaxing-stat">
+                <p class="smallwaxing-stat__intro">오직 왁싱에만 몰두한</p>
+                <p class="smallwaxing-stat__number">
+                    <span class="smallwaxing-stat__value" data-counter="10">0</span>
+                    <span class="smallwaxing-stat__unit">년</span>
+                </p>
+                <h3 class="smallwaxing-stat__label">왁싱 경력</h3>
+            </div>
+
+            <div class="smallwaxing-stat">
+                <p class="smallwaxing-stat__intro">꾸준히 찾아주시는</p>
+                <p class="smallwaxing-stat__number">
+                    <span class="smallwaxing-stat__value" data-counter="30000">0</span>
+                    <span class="smallwaxing-stat__unit">명 이상</span>
+                </p>
+                <h3 class="smallwaxing-stat__label">누적 고객 수</h3>
+            </div>
+
+            <div class="smallwaxing-stat">
+                <p class="smallwaxing-stat__intro">전문성을 위한</p>
+                <p class="smallwaxing-stat__number smallwaxing-stat__number--countries">
+                    <span class="smallwaxing-stat__countries" data-counter-countries>
+                        미국 · 호주 · 일본
+                    </span>
+                    <span class="smallwaxing-stat__value" data-counter="3">0</span>
+                    <span class="smallwaxing-stat__unit">개국</span>
+                </p>
+                <h3 class="smallwaxing-stat__label">해외 전문 교육 이수</h3>
+            </div>
+        </section>
+
+        <section class="smallwaxing-experience" aria-labelledby="experience-title">
+            <div class="smallwaxing-experience__scroll-line" aria-hidden="true">
+                <span></span>
+            </div>
+            <header class="smallwaxing-experience__header">
+                <h2 id="experience-title">오롯이 한 번의 왁싱이라도 최고의 경험을</h2>
+            </header>
+
+            <article class="smallwaxing-feature">
+                <div class="smallwaxing-feature__image inline-image-edit-host">
+                    <img th:src="${specialImage1}" alt="섬세한 맞춤 왁싱 케어">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='special-content-1', editorSlot='SPECIAL_CONTENT_1', editorImageUrl=${specialImage1}, editorLabel='특별함 본문 1 이미지', editorRecommendedSize='696 × 490px', editorReturnTo='/smallwaxing'"></th:block>
+                </div>
+                <div class="smallwaxing-feature__content"
+                     th:classappend="| text-x-${specialText1.horizontalPosition} text-y-${specialText1.verticalPosition}|">
+                    <p class="smallwaxing-feature__number">01</p>
+                    <p class="smallwaxing-feature__eyebrow" th:text="${specialText1.subtitle}"></p>
+                    <h3 th:text="${specialText1.title}"></h3>
+                    <p th:text="${specialText1.description}"></p>
+                </div>
+            </article>
+
+            <article class="smallwaxing-feature smallwaxing-feature--reverse">
+                <div class="smallwaxing-feature__image inline-image-edit-host">
+                    <img th:src="${specialImage2}" alt="깨끗하고 안전한 왁싱 서비스">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='special-content-2', editorSlot='SPECIAL_CONTENT_2', editorImageUrl=${specialImage2}, editorLabel='특별함 본문 2 이미지', editorRecommendedSize='696 × 490px', editorReturnTo='/smallwaxing'"></th:block>
+                </div>
+                <div class="smallwaxing-feature__content"
+                     th:classappend="| text-x-${specialText2.horizontalPosition} text-y-${specialText2.verticalPosition}|">
+                    <p class="smallwaxing-feature__number">02</p>
+                    <p class="smallwaxing-feature__eyebrow" th:text="${specialText2.subtitle}"></p>
+                    <h3 th:text="${specialText2.title}"></h3>
+                    <p th:text="${specialText2.description}"></p>
+                </div>
+            </article>
+
+            <article class="smallwaxing-feature">
+                <div class="smallwaxing-feature__image inline-image-edit-host">
+                    <img th:src="${specialImage3}" alt="숙련된 왁싱 전문가의 시술">
+                    <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
+                              th:with="editorId='special-content-3', editorSlot='SPECIAL_CONTENT_3', editorImageUrl=${specialImage3}, editorLabel='특별함 본문 3 이미지', editorRecommendedSize='696 × 490px', editorReturnTo='/smallwaxing'"></th:block>
+                </div>
+                <div class="smallwaxing-feature__content"
+                     th:classappend="| text-x-${specialText3.horizontalPosition} text-y-${specialText3.verticalPosition}|">
+                    <p class="smallwaxing-feature__number">03</p>
+                    <p class="smallwaxing-feature__eyebrow" th:text="${specialText3.subtitle}"></p>
+                    <h3 th:text="${specialText3.title}"></h3>
+                    <p th:text="${specialText3.description}"></p>
+                </div>
+            </article>
+        </section>
+    </div>
+</section>
+<th:block layout:fragment="pageScript">
+    <script th:src="@{/js/pages/smallwaxing/special.js}"></script>
+</th:block>
+</body>
+</html>

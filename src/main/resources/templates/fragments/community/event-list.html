@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--
+  fragments/board/event-list.html
+  - events    : Page<EventListDto>
+  - currentId : 현재 상세 페이지 id (list 페이지에서는 null)
+-->
+<div th:fragment="list(events, currentId)">
+
+  <!-- 이벤트 목록 -->
+  <div class="event-list">
+
+    <!-- 데이터가 없을 때 -->
+    <div class="event-empty"
+         th:if="${events == null or #lists.isEmpty(events.content)}">
+      진행 중인 이벤트가 없습니다.
+    </div>
+
+    <!-- 카드 리스트 -->
+    <ul class="event-cards"
+        th:if="${events != null and !#lists.isEmpty(events.content)}">
+
+      <li class="event-card"
+          th:each="e : ${events.content}"
+          th:classappend="${currentId != null and e.id == currentId} ? 'is-current'">
+
+        <a class="event-card__link"
+           th:href="${adminView}
+                ? @{/admin/events/{id}(id=${e.id}, viewType=${viewType})}
+                : @{/community/events/{id}(id=${e.id})}">
+
+          <!-- 썸네일 -->
+          <div class="event-card__thumb">
+            <img class="event-card__img"
+                 th:src="${e.thumbnailUrl}"
+                 th:alt="${e.title}"/>
+          </div>
+
+          <!-- 텍스트 -->
+          <div class="event-card__body">
+            <h3 class="event-card__title" th:text="${e.title}">이벤트 제목</h3>
+            <p class="event-card__date">
+              <span th:text="${#temporals.format(e.startDate, 'yyyy.MM.dd')}">2025.01.01</span>
+              ~
+              <span th:text="${#temporals.format(e.endDate, 'yyyy.MM.dd')}">2025.01.31</span>
+            </p>
+          </div>
+
+        </a>
+      </li>
+    </ul>
+
+    <!-- 페이지네이션 : 항상 노출 -->
+    <nav class="pagination">
+      <ul class="pagination__list">
+
+        <!-- 이전 -->
+        <li class="pagination__item" th:classappend="${events.first} ? 'is-disabled'">
+          <a class="pagination__link" th:if="${events.first}" href="#"><</a>
+
+          <!-- ✅ list에서 쓰면 /community/events?page=...
+               ✅ detail에서 쓰면 /community/events/{id}?page=... 로 가게 분기 -->
+          <a class="pagination__link" th:unless="${events.first}"
+             th:href="${adminView}
+                    ? @{/admin/events/{id}(id=${currentId}, viewType=${viewType}, page=${events.number - 1})}
+                    : @{/community/events/{id}(id=${currentId}, page=${events.number - 1})}">
+            이전
+          </a>
+        </li>
+
+        <!-- 현재 페이지 번호만 표시 -->
+        <li class="pagination__item is-active">
+          <span class="pagination__link" th:text="${events.number + 1}">1</span>
+        </li>
+
+
+        <!-- 다음 -->
+        <li class="pagination__item" th:classappend="${events.last} ? 'is-disabled'">
+          <a class="pagination__link" th:if="${events.last}" href="#">></a>
+
+          <a class="pagination__link" th:unless="${events.last}"
+             th:href="${adminView}
+                    ? @{/admin/events/{id}(id=${currentId}, viewType=${viewType}, page=${events.number + 1})}
+                    : @{/community/events/{id}(id=${currentId}, page=${events.number + 1})}">
+            다음
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+</body>
+</html>

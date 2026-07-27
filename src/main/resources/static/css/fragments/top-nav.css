@@ -1,0 +1,486 @@
+/* 전체 네비 영역 */
+/* .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: red;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width : 100%;
+    height: 95px;
+    padding : 0 40px;
+}  */
+
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 95px;
+    background: white;
+    transition: height 0.3s ease;
+}
+
+/*-- gnb 스크롤 시 높이 100px으로 조정 ---*/
+.top-nav.scrolled {
+    height: 70px;
+}
+
+.top-nav__inner {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 40px;
+    background: white;
+}
+
+.top-nav__left {
+    flex: 1;
+}
+
+.top-nav__right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* ✅ 오른쪽 끝으로 */
+    align-items: center;
+}
+
+/* 로고 */
+.top-nav__logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #333;
+}
+
+/*=======================================================*/
+/* 1차 메뉴 */
+.top-nav__menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav__menu > li {
+    position: relative;
+    padding : 50px 20px;
+}
+
+.top-nav__menu > li > a {
+    text-decoration: none;
+    color: #333;
+}
+
+.top-nav__menu > li:hover > a {
+    color: #000;
+    font-weight: 600;
+}
+
+/* Hover 시 2차 메뉴 열림 */
+.top-nav__menu li:hover > .top-nav__submenu  {
+    display: block;
+    animation: fadeIn 0.15s ease-in;
+}
+
+/* 메뉴 박스 호버 시 서브메뉴 표시 */
+.top-nav__menu > li:after{
+    display:block;
+    content: '';
+    border-bottom: solid 2px #c75e5e;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms ease-in-out;
+}
+
+.top-nav__menu > li:hover:after{
+    transform: scaleX(1);
+}
+
+/*=======================================================*/
+/* 2차 메뉴 (드롭다운) */
+.top-nav__submenu  {
+    display: none;
+    position: absolute;
+    top: calc(70% + 10px);   /* 👈 1차 메뉴 아래로 10px */
+    left: 0;
+
+    background-color: white;
+    padding: 15px;
+    list-style: none;
+    min-width: 180px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.top-nav__submenu li:hover{
+    background-color: #c75e5e;
+}
+
+.top-nav__submenu  li a {
+    display: block;
+    padding: 8px 14px;
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.top-nav__submenu li:hover a{
+    color: white;
+}
+
+/*-- 햄버거 메뉴 ------------------------------------------*/
+
+.hamburger-menu {
+    position: relative;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+
+.hamburger-menu:hover svg path {
+    stroke: #c75e5e;
+}
+
+.hamburger-menu.opened:hover svg path {
+    stroke: #c75e5e;
+}
+
+svg {
+    fill: none; /* 채우기 없음 */
+    stroke: black; /* 기본 색상 */
+    stroke-width: 4; /* 선 두께 */
+}
+
+.line {
+    fill: none;
+    stroke: black;
+    stroke-width: 6;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.line1 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+}
+.line2 {
+    stroke-dasharray: 60 60;
+    stroke-width: 6;
+}
+.line3 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+}
+.opened .line1 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+}
+.opened .line2 {
+    stroke-dasharray: 1 60;
+    stroke-dashoffset: -30;
+    stroke-width: 6;
+}
+.opened .line3 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+}
+
+/*-- 오버레이 스크린---------------------------------------*/
+/*-- 햄버거 클릭 시 나오는 오버레이 스크린---------------------*/
+
+
+/* Overlay effect*/
+.overlay {
+    position: fixed;
+    z-index: -10;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(124,115,115, 0.95);
+
+    /* effect */
+    top: -100%; /* 초기 위치를 화면 밖으로 설정 */
+    transition: top 1s ease-in-out, opacity 1s ease-in-out; /* 애니메이션을 위한 트랜지션 */
+    opacity: 0; /* 초기 투명도 */
+    visibility: hidden; /* 초기 상태에서는 숨김 */
+    pointer-events: none;
+}
+
+.overlay.open {
+    z-index: 1000;
+    top: 0; /* 보일 때 위에서 아래로 내려옴 */
+    opacity: 1; /* 보일 때 불투명하게 */
+    visibility: visible; /* 보일 때 가시성 설정 */
+    pointer-events: auto;
+}
+
+/* Menu style */
+.overlay__menu {
+    position: relative;
+    top: 800px;
+    height: 60%;
+    text-align: center;
+    font-size: 54px;
+    opacity: 0; /* 초기 투명도 */
+    visibility: hidden; /* 초기 상태에서는 숨김 */
+    transition: top 1.2s ease-in-out, opacity 0.5s ease-in-out; /* 위치 변화에 대한 트랜지션 설정 */
+}
+
+.overlay.open .overlay__menu {
+    top: 30%; /* 오버레이가 열릴 때 위로 이동 */
+    opacity: 1; /* 보일 때 불투명하게 */
+    visibility: visible; /* 보일 때 가시성 설정 */
+}
+
+
+/*-- 메인 -----------------------------------------------*/
+/*-- 오버레이 1차 메뉴-------------------------------------*/
+
+.overlay__menu-list {
+    /*background-color: #4CAF50;*/
+
+    flex: 1; /* 남은 공간을 채우기 위해 flex 사용 */
+    justify-content: center; /* 메뉴들을 중앙에 위치 */
+    list-style: none;  /*밑줄제거 */
+    display: flex;     /*가로*/
+}
+
+.overlay__menu-list li{
+    /*background-color: white;*/
+    position: relative; /* 서브메뉴 위치 설정을 위한 부모 요소 기준 */
+    list-style: none; /* .제거 */
+    padding: 10px  30px;
+
+}
+
+/* 메인 메뉴 링크 */
+.overlay__menu-list a {
+    font-weight: bold; /* 폰트 두께를 굵게 설정 */
+    font-size: 18px;
+    color: white; /* 링크 색상을 회색으로 설정 */
+    position: relative; /* 후속 가상 요소의 위치를 위해 relative 설정 */
+    display: inline-block; /* 인라인 블록으로 설정하여 너비 조정 가능 */
+    text-decoration: none; /* 밑줄 제거 */
+    transition: color 0.2s ease;
+}
+
+body.menu-open { overflow: hidden; }
+
+@media (max-width: 900px) {
+    .top-nav,
+    .top-nav.scrolled {
+        position: relative;
+        height: 0;
+        background: transparent;
+    }
+
+    .top-nav__inner {
+        height: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .top-nav__left,
+    .top-nav__menu,
+    .top-nav__right form {
+        display: none;
+    }
+
+    .top-nav__right {
+        position: static;
+        flex: none;
+    }
+
+    .hamburger-menu {
+        position: fixed;
+        z-index: 1100;
+        top: 14px;
+        right: 14px;
+        width: 46px;
+        height: 46px;
+        padding: 8px;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .96);
+        box-shadow: 0 5px 18px rgba(30, 25, 20, .14);
+    }
+
+    .hamburger-menu svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .overlay {
+        top: 0;
+        height: 100dvh;
+        padding: 82px 22px 34px;
+        overflow-y: auto;
+        background: rgba(48, 43, 39, .98);
+        transform: translateY(-16px);
+        transition: opacity .25s ease, transform .3s ease, visibility .3s;
+    }
+
+    .overlay.open { transform: translateY(0); }
+
+    .overlay__menu,
+    .overlay.open .overlay__menu {
+        position: static;
+        height: auto;
+        text-align: left;
+        opacity: 1;
+        visibility: visible;
+        transition: none;
+    }
+
+    .overlay__menu-list {
+        display: grid;
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .overlay__menu-list > li {
+        padding: 17px 4px;
+        border-bottom: 1px solid rgba(255, 255, 255, .13);
+    }
+
+    .overlay__menu-list > li > a {
+        display: block;
+        font-size: 21px;
+        letter-spacing: -.02em;
+    }
+
+    .overlay__submenu {
+        display: flex;
+        position: static;
+        min-width: 0;
+        margin-top: 10px;
+        padding: 0;
+        flex-wrap: wrap;
+        gap: 5px 16px;
+        transform: none;
+    }
+
+    .overlay__submenu li { padding: 0; }
+
+    .overlay__submenu li a {
+        padding: 4px 0;
+        color: rgba(255, 255, 255, .66);
+        font-size: 13px;
+        font-weight: 500;
+    }
+}
+
+.overlay__menu-list > li > a:hover,
+.overlay__menu-list > li > a:focus-visible {
+    color: #c75e5e;
+}
+
+/*-- 서브 -----------------------------------------------*/
+/*-- 오버레이 2차 메뉴-------------------------------------*/
+
+.overlay__submenu {
+    display: block; /* 기본적으로 숨김 */
+    position: absolute;
+    /*background-color: red;*/
+    list-style: none;
+    min-width: 250px; /* 최소 너비 설정 **문장길이*/
+    top: 100%; /* 부모 요소의 높이만큼 아래로 배치 */
+    left: 50%; /* 부모 요소의 중앙 기준으로 왼쪽 */
+    transform: translateX(-50%); /* 부모 요소의 중앙에 위치하도록 조정 */
+}
+
+/* 서브메뉴 링크 */
+.overlay__submenu li a {
+    font-size: 15px;
+    font-weight: bold;
+    color: gainsboro; /* 드롭다운 링크 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    display: block;
+    padding: 0px 20px; /* 서브메뉴 항목의 여백 */
+    left: 0;
+}
+
+.overlay__submenu li a:hover,
+.overlay__submenu li a:focus-visible {
+    color: #c75e5e;
+}
+
+.overlay__submenu-toggle {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .overlay__menu-list > li {
+        position: relative;
+    }
+
+    .overlay__menu-list > li > a {
+        position: relative;
+        z-index: 1;
+        padding-right: 52px;
+        touch-action: manipulation;
+    }
+
+    .overlay__submenu-toggle {
+        display: grid;
+        position: absolute;
+        z-index: 2;
+        top: 10px;
+        right: 0;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        color: #fff;
+        background: rgba(255, 255, 255, .09);
+        font-size: 16px;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .overlay__submenu-toggle i {
+        transition: transform .22s ease;
+    }
+
+    .overlay__menu-list > li.submenu-open > .overlay__submenu-toggle i {
+        transform: rotate(180deg);
+    }
+
+    .overlay__submenu {
+        display: none;
+        position: static;
+        min-width: 0;
+        margin-top: 10px;
+        padding: 3px 0 0;
+        flex-wrap: wrap;
+        gap: 5px 16px;
+        transform: none;
+    }
+
+    .overlay__menu-list > li.submenu-open > .overlay__submenu {
+        display: flex;
+    }
+
+    .overlay__submenu li {
+        padding: 0;
+    }
+
+    .overlay__submenu li a {
+        padding: 5px 0;
+        color: rgba(255, 255, 255, .68);
+        font-size: 13px;
+        font-weight: 500;
+    }
+}

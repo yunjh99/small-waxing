@@ -1,0 +1,35 @@
+<!-- resources/templates/fragments/side-nav.html -->
+<aside th:fragment="sideNavFragment" class="side-nav">
+    <button class="side-nav__toggle"
+            type="button"
+            aria-label="빠른 메뉴 열기"
+            aria-expanded="false"
+            aria-controls="quick-menu">
+        <span aria-hidden="true"></span>
+    </button>
+    <nav id="quick-menu" class="side-nav__grid" aria-label="빠른 메뉴">
+        <a class="side-nav__item side-nav__item--kakao"
+           th:href="${kakaoChannelUrl}"
+           target="_blank" rel="noopener noreferrer" aria-label="카카오톡 채널 열기">
+            <span class="side-nav__icon"><i class="bi bi-chat-fill" aria-hidden="true"></i></span>
+            <span>카카오</span>
+        </a>
+        <a class="side-nav__item side-nav__item--instagram"
+           th:href="${instagramUrl}"
+           target="_blank" rel="noopener noreferrer" aria-label="인스타그램 열기">
+            <span class="side-nav__icon"><i class="bi bi-instagram" aria-hidden="true"></i></span>
+            <span>인스타</span>
+        </a>
+        <a class="side-nav__item side-nav__item--naver"
+           th:href="${naverReservationUrl}"
+           target="_blank" rel="noopener noreferrer" aria-label="네이버 예약 열기">
+            <span class="side-nav__icon side-nav__icon--naver" aria-hidden="true">N</span>
+            <span>네이버</span>
+        </a>
+        <a class="side-nav__item side-nav__item--pricing"
+           th:href="@{/pricing}" aria-label="가격 안내 보기">
+            <span class="side-nav__icon"><i class="bi bi-receipt" aria-hidden="true"></i></span>
+            <span>가격안내</span>
+        </a>
+    </nav>
+</aside>

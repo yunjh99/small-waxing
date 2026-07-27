@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/default-layout}">
+
+<head>
+    <title>공지사항</title>
+    <meta name="description" content="스몰왁싱 공지사항 페이지">
+
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/community/notice/list.css}">
+        <link rel="stylesheet" th:href="@{/css/pages/community/common.css}">
+    </th:block>
+</head>
+<body>
+
+<section layout:fragment="section-top">
+    <div th:replace="~{fragments/community/community-hero :: hero('notice', '공지사항', 'NOTICE')}"></div>
+</section>
+
+<section layout:fragment="content">
+    <div class="content">
+        <div class="commu-list">
+
+            <!-- 관리자에서만 탭 노출 -->
+            <div class="commu-tabs" sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/notices(viewType='all')}"
+                   th:classappend="${viewType=='all'} ? 'is-active' : ''">
+                    전체
+                </a>
+                <a th:href="@{/admin/notices(viewType='active')}"
+                   th:classappend="${viewType=='active'} ? 'is-active' : ''">
+                    정상
+                </a>
+                <a th:href="@{/admin/notices(viewType='deleted')}"
+                   th:classappend="${viewType=='deleted'} ? 'is-active' : ''">
+                    삭제된
+                </a>
+            </div>
+
+            <table class="notice-table"
+                   th:if="${notices != null and !#lists.isEmpty(notices.content)}">
+
+                <tbody>
+                <tr th:each="notice : ${notices.content}">
+                    <td class="notice-table__num"
+                        th:text="${notice.id}">1</td>
+
+                    <td class="notice-table__title">
+                        <a th:href="${adminView}
+                            ? @{/admin/notices/{id}(id=${notice.id}, viewType=${viewType})}
+                            : @{/community/notices/{id}(id=${notice.id})}"
+                                       th:text="${notice.title}">
+                            공지사항 제목
+                        </a>
+                    </td>
+
+                    <td class="notice-table__user"
+                        th:text="${notice.userName}">
+                        관리자
+                    </td>
+
+
+                    <td class="notice-table__date"
+                        th:text="${#temporals.format(notice.createdAt, 'yyyy.MM.dd')}">
+                        2026.03.14
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="notice-empty"
+                 th:if="${notices == null or #lists.isEmpty(notices.content)}">
+                등록된 공지사항이 없습니다.
+            </div>
+
+            <div class="list-actions" sec:authorize="hasRole('ADMIN')">
+                <a class="list-actions__btn"
+                   th:href="@{/admin/notices/form}">
+                    글쓰기
+                </a>
+            </div>
+
+        </div>
+        <nav class="pagination" th:if="${notices != null and notices.totalPages > 0}">
+            <ul class="pagination__list">
+
+                <!-- 이전 -->
+                <li class="pagination__item"
+                    th:classappend="${notices.first} ? 'is-disabled'">
+                    <a class="pagination__link" th:if="${notices.first}" href="#"><</a>
+                    <a class="pagination__link" th:unless="${notices.first}"
+                       th:href="${adminView}
+                    ? @{/admin/notices(viewType=${viewType}, page=${notices.number - 1})}
+                    : @{/community/notices(page=${notices.number - 1})}">
+                        이전
+                    </a>
+                </li>
+
+                <!-- 현재 페이지 번호만 표시 -->
+                <li class="pagination__item is-active">
+                    <span class="pagination__link" th:text="${notices.number + 1}">1</span>
+                </li>
+
+                <!-- 다음 -->
+                <li class="pagination__item"
+                    th:classappend="${notices.last} ? 'is-disabled'">
+                    <a class="pagination__link" th:if="${notices.last}" href="#">></a>
+                    <a class="pagination__link" th:unless="${notices.last}"
+                       th:href="${adminView}
+                    ? @{/admin/notices(viewType=${viewType}, page=${notices.number + 1})}
+                    : @{/community/notices(page=${notices.number + 1})}">
+                        다음
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
+    <th:block layout:fragment="pageScript">
+        <script th:src="@{/js/pages/community/notice/notice.js}" defer></script>
+    </th:block>
+</section>
+</body>
+</html>

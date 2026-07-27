@@ -1,0 +1,154 @@
+.analytics-page {
+    width: min(1280px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 90px 0 120px;
+}
+
+.analytics-header {
+    margin-bottom: 42px;
+    text-align: center;
+}
+
+.analytics-header p {
+    margin: 0 0 12px;
+    color: #c75e5e;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.analytics-header h1 {
+    margin: 0 0 14px;
+    color: #222;
+    font-size: 38px;
+}
+
+.analytics-header span {
+    color: #777;
+    font-size: 14px;
+}
+
+.analytics-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.analytics-summary article,
+.analytics-card {
+    border: 1px solid #e8e1dc;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.analytics-summary article {
+    padding: 26px;
+}
+
+.analytics-summary span {
+    display: block;
+    margin-bottom: 14px;
+    color: #777;
+    font-size: 14px;
+}
+
+.analytics-summary strong {
+    color: #26211e;
+    font-size: 34px;
+}
+
+.analytics-summary small {
+    margin-left: 4px;
+    color: #999;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.analytics-card {
+    padding: 28px;
+}
+
+.analytics-card h2 {
+    margin: 0 0 6px;
+    color: #292522;
+    font-size: 20px;
+}
+
+.analytics-card > p {
+    margin: 0 0 22px;
+    color: #999;
+    font-size: 13px;
+}
+
+.analytics-ranking {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.analytics-ranking li,
+.analytics-stat-list > div,
+.analytics-device-list > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    border-bottom: 1px solid #f0ece9;
+}
+
+.analytics-ranking__number {
+    width: 24px;
+    color: #c75e5e;
+    font-weight: 700;
+    text-align: center;
+}
+
+.analytics-ranking__label {
+    flex: 1;
+    overflow: hidden;
+    color: #555;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.analytics-ranking strong,
+.analytics-stat-list strong,
+.analytics-device-list strong {
+    margin-left: auto;
+    color: #333;
+    font-size: 14px;
+}
+
+.analytics-stat-list span,
+.analytics-device-list span {
+    color: #555;
+    font-size: 14px;
+}
+
+.analytics-empty {
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+}
+
+@media (max-width: 800px) {
+    .analytics-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .analytics-summary {
+        grid-template-columns: 1fr;
+    }
+}

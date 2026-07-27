@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>방문 통계</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/admin/analytics.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <main class="analytics-page">
+        <header class="analytics-header">
+            <p>ADMIN ANALYTICS</p>
+            <h1>방문 통계</h1>
+            <span>방문자 개인을 식별하는 정보 없이 사이트 이용 현황을 집계합니다.</span>
+        </header>
+
+        <section class="analytics-summary" aria-label="주요 방문 통계">
+            <article>
+                <span>누적 방문자</span>
+                <strong th:text="${#numbers.formatInteger(analytics.cumulativeVisitors, 0, 'COMMA')}">0</strong>
+                <small>명</small>
+            </article>
+            <article>
+                <span>이번 달 방문자</span>
+                <strong th:text="${#numbers.formatInteger(analytics.monthlyVisitors, 0, 'COMMA')}">0</strong>
+                <small>명</small>
+            </article>
+            <article>
+                <span>금일 방문자</span>
+                <strong th:text="${#numbers.formatInteger(analytics.todayVisitors, 0, 'COMMA')}">0</strong>
+                <small>명</small>
+            </article>
+            <article>
+                <span>금일 페이지 조회</span>
+                <strong th:text="${#numbers.formatInteger(analytics.todayPageViews, 0, 'COMMA')}">0</strong>
+                <small>회</small>
+            </article>
+        </section>
+
+        <div class="analytics-grid">
+            <section class="analytics-card">
+                <h2>조회수 높은 게시글</h2>
+                <p>이번 달 기준</p>
+                <ol class="analytics-ranking">
+                    <li th:each="item, stat : ${analytics.popularPosts}">
+                        <span class="analytics-ranking__number" th:text="${stat.count}">1</span>
+                        <span class="analytics-ranking__label" th:text="${item.label}">게시글 주소</span>
+                        <strong th:text="${#numbers.formatInteger(item.count, 0, 'COMMA')} + '회'">0회</strong>
+                    </li>
+                    <li class="analytics-empty" th:if="${#lists.isEmpty(analytics.popularPosts)}">아직 조회 데이터가 없습니다.</li>
+                </ol>
+            </section>
+
+            <section class="analytics-card">
+                <h2>인기 페이지</h2>
+                <p>이번 달 기준</p>
+                <ol class="analytics-ranking">
+                    <li th:each="item, stat : ${analytics.popularPages}">
+                        <span class="analytics-ranking__number" th:text="${stat.count}">1</span>
+                        <span class="analytics-ranking__label" th:text="${item.label}">페이지 주소</span>
+                        <strong th:text="${#numbers.formatInteger(item.count, 0, 'COMMA')} + '회'">0회</strong>
+                    </li>
+                    <li class="analytics-empty" th:if="${#lists.isEmpty(analytics.popularPages)}">아직 조회 데이터가 없습니다.</li>
+                </ol>
+            </section>
+
+            <section class="analytics-card">
+                <h2>유입 경로</h2>
+                <p>이번 달 조회 기준</p>
+                <div class="analytics-stat-list">
+                    <div th:each="item : ${analytics.referrers}">
+                        <span th:text="${item.label}">직접 방문</span>
+                        <strong th:text="${#numbers.formatInteger(item.count, 0, 'COMMA')} + '회'">0회</strong>
+                    </div>
+                    <div class="analytics-empty" th:if="${#lists.isEmpty(analytics.referrers)}">아직 유입 데이터가 없습니다.</div>
+                </div>
+            </section>
+
+            <section class="analytics-card">
+                <h2>접속 기기</h2>
+                <p>이번 달 조회 기준</p>
+                <div class="analytics-device-list">
+                    <div th:each="item : ${analytics.devices}">
+                        <span th:text="${item.label}">PC</span>
+                        <strong th:text="${#numbers.formatInteger(item.count, 0, 'COMMA')} + '회'">0회</strong>
+                    </div>
+                    <div class="analytics-empty" th:if="${#lists.isEmpty(analytics.devices)}">아직 기기 데이터가 없습니다.</div>
+                </div>
+            </section>
+        </div>
+    </main>
+</section>
+</body>
+</html>

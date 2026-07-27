@@ -1,0 +1,128 @@
+.inline-image-edit-host {
+    position: relative;
+}
+
+.inline-image-edit-button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    background: #c75e5e;
+    box-shadow: 0 6px 18px rgba(62, 41, 38, 0.28);
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.inline-image-edit-button:hover {
+    transform: translateY(-2px);
+    background: #ad4949;
+}
+
+.inline-image-dialog {
+    width: min(560px, calc(100% - 32px));
+    max-height: calc(100vh - 40px);
+    padding: 0;
+    overflow: auto;
+    border: 0;
+    border-radius: 16px;
+    color: #333;
+    background: #fff;
+    box-shadow: 0 24px 80px rgba(24, 18, 16, 0.28);
+}
+
+.inline-image-dialog::backdrop {
+    background: rgba(25, 20, 18, 0.58);
+    backdrop-filter: blur(3px);
+}
+
+.inline-image-dialog__form {
+    display: grid;
+    gap: 20px;
+    padding: 30px;
+    text-align: left;
+}
+
+.inline-image-dialog__form header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.inline-image-dialog__form header span {
+    color: #c75e5e;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.inline-image-dialog__form header h3 {
+    margin: 5px 0 0;
+    color: #292725;
+    font-size: 25px;
+}
+
+.inline-image-dialog__form header button {
+    padding: 7px;
+    border: 0;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.inline-image-dialog__preview {
+    height: 220px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #eee;
+}
+
+.inline-image-dialog__preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.inline-image-dialog__form label {
+    display: grid;
+    gap: 8px;
+    color: #45413e;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.inline-image-dialog__form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd5d0;
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    font: inherit;
+    font-weight: 400;
+}
+
+.inline-image-dialog__form > p {
+    margin: -10px 0 0;
+    color: #8a827d;
+    font-size: 13px;
+}
+
+.inline-image-dialog__submit {
+    padding: 14px 20px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background: #c75e5e;
+    font-weight: 700;
+    cursor: pointer;
+}

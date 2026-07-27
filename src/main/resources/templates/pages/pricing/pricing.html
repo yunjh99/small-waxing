@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>가격안내</title>
+    <meta name="description" content="스몰왁싱 여성 및 남성 시술 가격 안내">
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/pricing/pricing.css(v='20260727-5')}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="section-top">
+    <div class="page-hero__info">
+        <h1 class="page-hero__title">가격안내</h1>
+        <p class="page-hero__subtitle">PRICE</p>
+    </div>
+</section>
+
+<section layout:fragment="content">
+    <div class="pricing-page">
+        <div class="pricing-toolbar" sec:authorize="hasRole('ADMIN')">
+            <a class="pricing-add-button" th:href="@{/admin/pricing/form}">메뉴 추가</a>
+        </div>
+
+        <div class="pricing-comparison">
+            <div th:replace="~{fragments/pricing/gender-column :: column('여성', ${femaleGender}, ${femalePricings})}"></div>
+            <div th:replace="~{fragments/pricing/gender-column :: column('남성', ${maleGender}, ${malePricings})}"></div>
+        </div>
+
+        <p class="pricing-note">시술 범위와 상태에 따라 실제 가격이 달라질 수 있습니다.</p>
+    </div>
+</section>
+
+<th:block layout:fragment="pageScript">
+    <script th:src="@{/js/pages/pricing/pricing-order.js}"></script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default-layout}">
+<head>
+    <title>팝업 관리</title>
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{/css/pages/admin/popups.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <main class="popup-admin">
+        <header class="popup-admin__header">
+            <div>
+                <p>ADMIN</p>
+                <h1>팝업 관리</h1>
+                <span>노출 기간이 겹치면 방문자 화면에서 슬라이드로 함께 표시됩니다.</span>
+            </div>
+            <a th:href="@{/admin/popups/form}">팝업 추가</a>
+        </header>
+
+        <div class="popup-admin__message" th:if="${message}" th:text="${message}"></div>
+
+        <div class="popup-admin__grid">
+            <article class="popup-admin-card" th:each="popup : ${popups}">
+                <img th:src="${popup.imageUrl}" th:alt="${popup.title}">
+                <div>
+                    <h2 th:text="${popup.title}">팝업 제목</h2>
+                    <p>
+                        <span th:text="${popup.startDate}">2026-01-01</span>
+                        <span>~</span>
+                        <span th:text="${popup.endDate}">2026-01-31</span>
+                    </p>
+                    <div class="popup-admin-card__actions">
+                        <a th:href="@{/admin/popups/{id}/form(id=${popup.id})}">수정</a>
+                        <form th:action="@{/admin/popups/{id}/delete(id=${popup.id})}" method="post"
+                              onsubmit="return confirm('이 팝업을 삭제할까요?');">
+                            <button type="submit">삭제</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            <p class="popup-admin__empty" th:if="${#lists.isEmpty(popups)}">등록된 팝업이 없습니다.</p>
+        </div>
+    </main>
+</section>
+</body>
+</html>

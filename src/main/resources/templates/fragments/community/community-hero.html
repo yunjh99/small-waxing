@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="hero(activeMenu, title, subtitle)">
+  <div class="page-hero">
+    <div class="page-hero__no-img">
+      <nav class="page-nav">
+        <ul class="page-nav__list">
+          <li class="page-nav__item"
+              th:classappend="${activeMenu == 'event'} ? ' page-nav__item--active'">
+            <a class="page-nav__link" th:href="@{/community/events}">이벤트</a>
+          </li>
+
+          <li class="page-nav__item"
+              th:classappend="${activeMenu == 'notice'} ? ' page-nav__item--active'">
+            <a class="page-nav__link" th:href="@{/community/notices}">공지사항</a>
+          </li>
+
+          <li class="page-nav__item"
+              th:classappend="${activeMenu == 'faq'} ? ' page-nav__item--active'">
+            <a class="page-nav__link" th:href="@{/community/faqs}">자주묻는질문</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="page-hero__info">
+    <h1 class="page-hero__title" th:text="${title}">공지사항</h1>
+    <p class="page-hero__subtitle" th:text="${subtitle}">NOTICE</p>
+  </div>
+</th:block>
+
+</body>
+</html>
