@@ -1,0 +1,14 @@
+.git
+.gitattributes
+.gitignore
+.gradle
+.idea
+.agents
+.codex
+build
+out
+*.iml
+*.log
+.env
+uploads
+HELP.md

@@ -24,13 +24,14 @@
 - 메인 이미지, 갤러리 이미지 및 문구 관리
 - 방문 통계 대시보드
 ---
+
 ## 🛠 기술 스택
 
 | 구분 | 기술                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Backend | ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.0-6DB33F?style=flat-square&logo=springboot&logoColor=white) ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white)                                                                                                                                                                                                  |
-| View | ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3-005F0F?style=flat-square&logo=thymeleaf&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
-| Database | ![MySQL](https://img.shields.io/badge/MySQL-8.4-4479A1?style=flat-square&logo=mysql&logoColor=white)                                                                                                                                                                                                                                                                                                                          |
+| Backend | ![Java](https://img.shields.io/badge/Java-21-F5A623?style=flat-square&logo=openjdk&logoColor=black) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.0-9BD36A?style=flat-square&logo=springboot&logoColor=black) ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white)                                                                                                                                                                                                  |
+| View | ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3-79C982?style=flat-square&logo=thymeleaf&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
+| Database | ![MySQL](https://img.shields.io/badge/MySQL-8.4-72C5E8?style=flat-square&logo=mysql&logoColor=black)                                                                                                                                                                                                                                                                                                                          |
 | Data Access | ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=flat-square&logo=spring&logoColor=white)  ![QueryDSL](https://img.shields.io/badge/QueryDSL-0769AD?style=flat-square)                                                                                                                | |
 ---
 ## 📁 프로젝트 구조
@@ -55,5 +56,40 @@ src
 │       └── templates     # Thymeleaf 템플릿
 └── test
 ```
+
+---
+
+## 🐳 Docker 실행
+
+### 1. 환경변수 준비
+
+최초 실행 시 예시 파일을 복사합니다.
+
+```powershell
+Copy-Item .env.example .env
+```
+
+생성된 `.env`에서 DB 및 관리자 비밀번호를 실제 값으로 변경합니다. `.env`는 Git에 포함되지 않습니다.
+
+### 2. 컨테이너 실행
+
+```powershell
+docker compose up -d --build
+```
+
+```powershell
+docker compose ps
+docker compose logs -f app
+```
+
+실행 후 <http://localhost:8080>으로 접속합니다. MySQL은 로컬 PC에서 `localhost:3307`로 접근할 수 있습니다.
+
+### 3. 컨테이너 종료
+
+```powershell
+docker compose down
+```
+
+MySQL 데이터와 업로드 이미지는 Docker 볼륨에 유지됩니다. `docker compose down -v`는 데이터 볼륨까지 삭제하므로 주의합니다.
 
 ---
