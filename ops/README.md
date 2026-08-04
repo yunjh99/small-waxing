@@ -3,7 +3,9 @@
 The GitHub Actions workflow runs tests for pull requests. A successful push to
 `main` connects to the Lightsail instance with a deployment-only SSH key. That
 key is restricted to the root-owned deployment script below and cannot start a
-general SSH shell.
+general SSH shell. The workflow sends SSH keepalive messages while the remote
+Docker build is running, so a quiet Gradle build does not look like an idle
+connection to an intermediate network device.
 
 ## One-time Lightsail setup
 

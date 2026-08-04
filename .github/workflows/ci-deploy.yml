@@ -74,5 +74,9 @@ jobs:
           ssh \
             -i "$HOME/.ssh/lightsail_deploy" \
             -o BatchMode=yes \
+            -o ConnectTimeout=30 \
             -o IdentitiesOnly=yes \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=20 \
+            -o TCPKeepAlive=yes \
             "$LIGHTSAIL_USER@$LIGHTSAIL_HOST"
