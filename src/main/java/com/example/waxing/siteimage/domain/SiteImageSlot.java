@@ -11,7 +11,7 @@ public enum SiteImageSlot {
     MAIN_SERVICE_2("메인 서비스 2 - 얼굴", "/img/main/face.png", "1751 × 898px", "main"),
     MAIN_SERVICE_3("메인 서비스 3 - 바디", "/img/main/body.png", "1751 × 898px", "main"),
     MAIN_SERVICE_4("메인 서비스 4 - 임산부", "/img/main/baby.png", "1751 × 898px", "main"),
-    SPECIAL_HERO("예제왁싱 특별함 상단", "/img/main/smallwaxing.png", "1920 × 820px", "special"),
+    SPECIAL_HERO("스몰왁싱 특별함 상단", "/img/main/smallwaxing.png", "1920 × 820px", "special"),
     LOCATION_HERO("오시는 길 상단", "/img/main/woman.png", "1920 × 820px", "location"),
     GALLERY_HERO("둘러보기 상단", "/img/main/gallery.png", "1920 × 820px", "gallery"),
     SPECIAL_CONTENT_1("특별함 본문 1", "/img/smallwaxing/01.png", "696 × 490px", "special"),

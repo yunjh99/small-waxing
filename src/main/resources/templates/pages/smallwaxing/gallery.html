@@ -15,16 +15,16 @@
 </section>
 <section layout:fragment="content">
     <div class="smallwaxing-page">
-        <h2>예제왁싱 공간</h2>
-        <p>편안하고 쾌적한 예제왁싱 매장 모습을 소개합니다.</p>
+        <h2>스몰왁싱 공간</h2>
+        <p>편안하고 쾌적한 스몰왁싱 매장 모습을 소개합니다.</p>
 
-        <section class="smallwaxing-gallery" aria-label="예제왁싱 공간 사진">
+        <section class="smallwaxing-gallery" aria-label="스몰왁싱 공간 사진">
             <div class="smallwaxing-gallery__viewport">
                 <div class="smallwaxing-gallery__track">
                     <figure class="smallwaxing-gallery__slide inline-image-edit-host"
                             th:each="image, stat : ${galleryImages}">
                         <img th:src="${image.imageUrl}"
-                             th:alt="|예제왁싱 공간 사진 ${stat.count}|">
+                             th:alt="|스몰왁싱 공간 사진 ${stat.count}|">
                         <th:block th:replace="~{fragments/inline-image-editor :: galleryEditor}"
                                   th:with="editorId=|gallery-slide-${image.id}|, editorImageId=${image.id}, editorImageUrl=${image.imageUrl}, editorLabel=|둘러보기 사진 ${stat.count}|, editorReturnTo='/smallwaxing/gallery'"></th:block>
                     </figure>
