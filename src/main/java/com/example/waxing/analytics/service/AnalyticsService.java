@@ -22,7 +22,7 @@ public class AnalyticsService {
 
     private static final Map<String, String> PAGE_NAMES = Map.ofEntries(
             Map.entry("/", "메인 페이지"),
-            Map.entry("/smallwaxing", "스몰왁싱 특별함"),
+            Map.entry("/smallwaxing", "예제왁싱 특별함"),
             Map.entry("/smallwaxing/gallery", "둘러보기"),
             Map.entry("/services/brazilian", "브라질리언왁싱"),
             Map.entry("/services/body", "바디왁싱"),

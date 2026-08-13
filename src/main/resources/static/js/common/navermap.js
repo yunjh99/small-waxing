@@ -1,10 +1,10 @@
 // Naver Map API
 var dmap = null;
 var fmap = null;
-var shopPosition = new naver.maps.LatLng(37.39113, 127.10896);
+var shopPosition = new naver.maps.LatLng(37.50075, 127.03650);
 var shopInfoContent =
     '<div style="padding:10px 14px; font-size:14px; font-weight:600; white-space:nowrap;">' +
-    '스몰왁싱 분당판교점' +
+    '예제왁싱 강남점' +
     '</div>';
 
 function initDMap() {
@@ -18,7 +18,7 @@ function initDMap() {
         var marker1 = new naver.maps.Marker({
             position: shopPosition,
             map: dmap,
-            title: '스몰왁싱 분당판교점'
+            title: '예제왁싱 강남점'
         });
         var infoWindow1 = new naver.maps.InfoWindow({
             content: shopInfoContent,
@@ -41,7 +41,7 @@ function initFMap() {
         var marker2 = new naver.maps.Marker({
             position: shopPosition,
             map: fmap,
-            title: '스몰왁싱 분당판교점'
+            title: '예제왁싱 강남점'
         });
         var infoWindow2 = new naver.maps.InfoWindow({
             content: shopInfoContent,

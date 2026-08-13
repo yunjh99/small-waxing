@@ -9,7 +9,7 @@
              th:style="|--hero-image: url('${heroImageUrl}')|">
             <th:block th:if="${activeMenu == 'special'}"
                       th:replace="~{fragments/inline-image-editor :: slotEditor}"
-                      th:with="editorId='special-hero', editorSlot='SPECIAL_HERO', editorImageUrl=${heroImageUrl}, editorLabel='스몰왁싱 특별함 상단 이미지', editorRecommendedSize='1920 × 820px', editorReturnTo='/smallwaxing'"></th:block>
+                      th:with="editorId='special-hero', editorSlot='SPECIAL_HERO', editorImageUrl=${heroImageUrl}, editorLabel='예제왁싱 특별함 상단 이미지', editorRecommendedSize='1920 × 820px', editorReturnTo='/smallwaxing'"></th:block>
             <th:block th:if="${activeMenu == 'gallery'}"
                       th:replace="~{fragments/inline-image-editor :: slotEditor}"
                       th:with="editorId='gallery-hero', editorSlot='GALLERY_HERO', editorImageUrl=${heroImageUrl}, editorLabel='둘러보기 상단 이미지', editorRecommendedSize='1920 × 820px', editorReturnTo='/smallwaxing/gallery'"></th:block>
@@ -17,25 +17,25 @@
                  th:classappend="| text-x-${heroText.horizontalPosition} text-y-${heroText.verticalPosition}|"
                  th:if="${activeMenu == 'special' or activeMenu == 'gallery'}">
                 <p class="page-hero__eyebrow" th:text="${heroText.subtitle}">SPECIAL SMALL WAXING</p>
-                <h1 class="page-hero__title" th:text="${heroText.title}">스몰왁싱의 특별함</h1>
+                <h1 class="page-hero__title" th:text="${heroText.title}">예제왁싱의 특별함</h1>
                 <p class="page-hero__description" th:text="${heroText.description}"></p>
             </div>
 
             <div class="page-hero__info"
                  th:classappend="| text-x-${heroText.horizontalPosition} text-y-${heroText.verticalPosition}|"
                  th:unless="${activeMenu == 'special' or activeMenu == 'gallery'}">
-                <h1 class="page-hero__title" th:text="${heroText.title}">스몰왁싱 특별함</h1>
+                <h1 class="page-hero__title" th:text="${heroText.title}">예제왁싱 특별함</h1>
                 <p class="page-hero__subtitle" th:text="${heroText.subtitle}">ABOUT SMALL</p>
                 <p class="page-hero__description"
                    th:if="${!#strings.isEmpty(heroText.description)}"
                    th:text="${heroText.description}"></p>
             </div>
 
-            <nav class="page-nav" aria-label="스몰왁싱 메뉴">
+            <nav class="page-nav" aria-label="예제왁싱 메뉴">
                 <ul class="page-nav__list">
                     <li class="page-nav__item"
                         th:classappend="${activeMenu == 'special'} ? ' page-nav__item--active'">
-                        <a class="page-nav__link" th:href="@{/smallwaxing}">스몰왁싱 특별함</a>
+                        <a class="page-nav__link" th:href="@{/smallwaxing}">예제왁싱 특별함</a>
                     </li>
                     <li class="page-nav__item"
                         th:classappend="${activeMenu == 'gallery'} ? ' page-nav__item--active'">

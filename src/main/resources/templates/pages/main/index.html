@@ -6,7 +6,7 @@
 
 <head>
     <title>메인</title>
-    <meta name="description" content="스몰왁싱 메인 페이지">
+    <meta name="description" content="예제왁싱 메인 페이지">
     <!-- 🔹 페이지 전용 CSS -->
     <th:block layout:fragment="pageCss">
         <link rel="stylesheet" th:href="@{/css/pages/home/index.css}">
@@ -19,7 +19,7 @@
     <div class="content">
 
         <div class="image-container inline-image-edit-host">
-            <img th:src="${mainHeroImage}" alt="스몰왁싱 메인 이미지">
+            <img th:src="${mainHeroImage}" alt="예제왁싱 메인 이미지">
             <th:block th:replace="~{fragments/inline-image-editor :: slotEditor}"
                       th:with="editorId='main-hero', editorSlot='MAIN_HERO', editorImageUrl=${mainHeroImage}, editorLabel='메인 상단 이미지', editorRecommendedSize='1920 × 810px', editorReturnTo='/'"></th:block>
             <div class="main-visual-text"
@@ -35,8 +35,8 @@
             <div class="middle-header">
                 <div class="header-item">
                     <i class="bi bi-award"></i>
-                    <h1>스몰왁싱</h1>
-                    <h4>스몰왁싱만의<br>특별함을 만나보세요</h4>
+                    <h1>예제왁싱</h1>
+                    <h4>예제왁싱만의<br>특별함을 만나보세요</h4>
                     <a th:href="@{/smallwaxing}">알아보기</a>
                 </div>
 
@@ -57,7 +57,7 @@
                 <div class="header-item">
                     <i class="bi bi-chat-dots"></i>
                     <h1>왁싱상담</h1>
-                    <h4>스몰왁싱에 대해<br>궁금한 점을 물어보세요</h4>
+                    <h4>예제왁싱에 대해<br>궁금한 점을 물어보세요</h4>
                     <a th:href="@{#}">상담하기</a>
                 </div>
             </div>
